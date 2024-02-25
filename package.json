@@ -1,5 +1,5 @@
 {
-  "homepage": "https://stock-tracker-vt1d.onrender.com",
+  "homepage": "https://ntu-us-stock-tracker.onrender.com",
   "name": "stock-tracker-app",
   "version": "0.1.0",
   "private": true,
@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build --basepath='/StockTracker-Client"
+    "deploy": "gh-pages -d build --basepath='/Stock-Tracker-Client"
   },
   "browserslist": {
     "production": [
