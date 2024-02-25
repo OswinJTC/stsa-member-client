@@ -1,0 +1,78 @@
+
+.transaction-container{
+    background-image: url("https://images.freeimages.com/images/large-previews/7be/sunset-1369613.jpg?fmt=webp&w=500");
+    background-position: center;
+    background-size: cover;
+}
+
+
+.rolling-container {
+    max-height: 400px;
+    overflow-x: auto;
+    overflow-y: auto;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    
+  }
+.add-record-button{
+  font-size: 30px;
+}
+  
+  .header-row {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+    padding: 10px;
+    border: 1px solid #b1b0b0;
+  }
+  
+  .attribute, .data {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    
+  }
+  
+  .trade-item {
+    display: flex;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+    border: 1px solid #b1b0b0;
+    background-color: white;
+  }
+  
+  .trade-item .data {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  
+  
+  @media screen and (max-width: 1288px) {
+    .rolling-container {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .trade-item {
+      width: 980px;
+      
+    }
+
+    .header-row {
+        width: 980px; /* 應該不能這樣設，但先不管 */
+    }
+  
+    .attribute {
+      width: 980px;  /* 應該不能這樣設，但先不管 */
+    }
+
+    .data {
+        flex: none;
+        min-width: 120px;
+      }
+  };
+  
