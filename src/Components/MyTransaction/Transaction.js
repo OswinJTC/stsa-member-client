@@ -257,7 +257,7 @@ const Transaction = () => {
 
         <div className='pt-5'></div>
 
-        {showModal && (
+        
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
@@ -269,7 +269,7 @@ const Transaction = () => {
             />
           </div>
         </div>
-      )}
+      
 
         <div className="rolling-container">
           {/* Header row */}
