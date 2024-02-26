@@ -114,7 +114,7 @@
   .form-row {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping to new line */
-    
+  
   }
   
   .form-column {
@@ -161,6 +161,18 @@
       margin-bottom: 10px; /* Add margin between rows */
       flex-direction: column; /* Change to column layout for smaller screens */
       align-items: center; /* Center the form rows vertically */
+    }
+
+    .form-row {
+      height: 150px;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    
+
+    .form-row {
+      height: 350px;
     }
   }
   
@@ -240,6 +252,10 @@
 }
 
 
+.transaction-heading{
+  font-size: 76px;
+}
+
 /* Media query for responsive design */
 @media (max-width: 850px) {
   .input-box {
@@ -256,5 +272,11 @@
     font-size: medium;
   
   
+  }
+
+  .transaction-heading{
+
+    font-size: 54px;
+
   }
 }
