@@ -7,7 +7,7 @@ const ModalForm = ({ showModal, closeModal, formData, handleChange, handleSubmit
   return (
      
     
-        <div className="modal active">
+        <div className="modal">
           <div className="modal-content">
             <div className='pt-4'></div>
 
