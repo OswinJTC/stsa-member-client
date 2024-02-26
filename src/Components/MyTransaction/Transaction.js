@@ -182,6 +182,11 @@ const Transaction = () => {
     getTrades();
   }, []);
 
+ useEffect(() => {
+  console.log("showModal state:", showModal);
+}, [showModal]);
+
+
  
   console.log("Filtered data", filteredData);
 
@@ -252,7 +257,8 @@ const Transaction = () => {
       <div className='pt-5'></div>
 
       <div className="add-record-button">
-          <button onClick={openModal}>新增紀錄</button>
+          <button onClick={() => { console.log("Button clicked"); openModal(); }}>新增紀錄</button>
+
         </div>
 
         <div className='pt-5'></div>
