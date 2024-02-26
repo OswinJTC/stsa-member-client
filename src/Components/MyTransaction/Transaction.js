@@ -231,7 +231,7 @@ const Transaction = () => {
         <div className='pt-5'></div>
         <div className='pt-3'></div>
         
-        <h1 style={{ fontFamily: 'serif', fontSize: '82px', fontWeight: 'bold', color: 'black' }}>歷史交易紀錄</h1>
+        <h1 className="transaction-heading" style={{ fontFamily: 'serif',fontWeight: 'bold', color: 'black' }}>歷史交易紀錄</h1>
         
 <div className='pt-3'></div>
         <div className="add-record-button">
@@ -384,8 +384,6 @@ const Transaction = () => {
       </button>
     </div>
   </div>
-
-         <div className='pt-3'></div>
  
 
         <div className="rolling-container">
@@ -526,7 +524,13 @@ const Transaction = () => {
 </div>
 
 </div>
- 
+
+
+
+        
+
+       
+
         <div className='pt-5'></div>
         <div>
           <button type="button" onClick={backHome}>返回首頁</button>
