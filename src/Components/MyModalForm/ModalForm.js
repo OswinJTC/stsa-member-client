@@ -5,8 +5,8 @@ const ModalForm = ({ showModal, closeModal, formData, handleChange, handleSubmit
 
   console.log("Received showModal boolean:",showModal);
   return (
-    <>
-      {showModal && (
+     
+    
         <div className="modal active">
           <div className="modal-content">
             <div className='pt-4'></div>
@@ -64,8 +64,8 @@ const ModalForm = ({ showModal, closeModal, formData, handleChange, handleSubmit
               <div className='pt-3'></div>
           </div>
         </div>
-      )}
-    </>
+      
+   
   );
 };
 
