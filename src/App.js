@@ -21,9 +21,18 @@ function App() {
   const [loggedUsername, setloggedUsername ] = useState();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    document.title = "IM2073 Project";
-  },[])
+  useEffect(() => {
+    // Create or update the description meta tag
+    const descriptionMetaTag = document.querySelector('meta[name="股票追蹤管理系統"]');
+    if (descriptionMetaTag) {
+      descriptionMetaTag.setAttribute('股票追蹤管理系統', '單純簡易的股票追蹤管理系統');
+    } else {
+      const newDescriptionMetaTag = document.createElement('meta');
+      newDescriptionMetaTag.setAttribute('股票追蹤管理系統', '單純簡易的股票追蹤管理系統');
+      newDescriptionMetaTag.setAttribute('股票追蹤管理系統', '');
+      document.head.appendChild(newDescriptionMetaTag);
+    }
+  }, []);
 
 
   const handleLogout = () =>{
