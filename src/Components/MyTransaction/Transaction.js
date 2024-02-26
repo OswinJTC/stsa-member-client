@@ -84,8 +84,10 @@ const Transaction = () => {
 
  
   const openModal = () => {
-    setShowModal(true);
-  };
+  console.log("Button clicked");
+  setShowModal(true);
+};
+
 
   const closeModal = () => {
     setShowModal(false);
