@@ -3,6 +3,7 @@ import api from '../../api/axiosConfig';
 import './Transaction.css';
 import { useNavigate } from 'react-router-dom';
 import ModalForm from '../MyModalForm/ModalForm';
+import { red } from '@mui/material/colors';
  
 
 const Transaction = () => {
@@ -15,12 +16,21 @@ const Transaction = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [filterButton, setFilteredButton] = useState(false);
   const [renderAllButton, setRenderAllButton] = useState(false);
+  
+
+  let totalProfit = 0;
 
   console.log("Filtered data: ", filteredData)
 
+  
+
+
   const handleFilter = () => {
 
+    totalProfit = 0;
+
     setFilteredButton(true);
+    
 
  
     // Filter data based on the user-defined date range
@@ -39,10 +49,13 @@ const Transaction = () => {
   };
 
   const handleRenderAll = () =>{
+    totalProfit = 0;
 
     setRenderAllButton(true);
 
     setFilteredButton(false);
+
+    
 
     console.log("Show all data.")
   }
@@ -202,12 +215,7 @@ const Transaction = () => {
           </div>
 
           <div className='pt-5'></div>
-       
-       
-
-          
         
-
         <div className='pt-5'></div>
 
         <div className='main-container'>
@@ -329,59 +337,96 @@ const Transaction = () => {
           </div>
 
           {filterButton && (
-  filteredData.map((trade, index) => (
-    <div key={index} className="trade-item">
-      <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
-      <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
-      <div className="data">{trade?.stockName}</div>
-      <div className="data">{trade?.buyPrice}</div>
-      <div className="data">{trade?.salePrice}</div>
-      <div className="data">{trade?.quantity}</div>
-      <div className="data">{trade?.profit?.toFixed(2)}</div>
-      <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
-      {/* Render more trade details as needed */}
-    </div>
-  ))
+  filteredData.map((trade, index) => {
+ 
+    totalProfit += trade.profit || 0; // Increment total profit with trade's profit
+    return (
+      <div key={index} className="trade-item">
+        <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+        <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+        <div className={`data ${trade.profit > 0 ? 'red-text' : 'green-text'}`}>{trade?.stockName}</div>
+        <div className="data">{trade?.buyPrice.toFixed(2)}</div>
+        <div className="data">{trade?.salePrice.toFixed(2)}</div>
+        <div className="data">{trade?.quantity.toFixed(1)}</div>
+        <div className="data">{trade?.profit?.toFixed(2)}</div>
+        <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+        {/* Render more trade details as needed */}
+      </div>
+    );
+  })
 )}
+
+
+
 
 {renderAllButton && (
   sortedTrades
     .filter(trade => trade?.owner === currentUser)
-    .map((trade, index) => (
-      <div key={index} className="trade-item">
-        <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
-        <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
-        <div className="data">{trade?.stockName}</div>
-        <div className="data">{trade?.buyPrice}</div>
-        <div className="data">{trade?.salePrice}</div>
-        <div className="data">{trade?.quantity}</div>
-        <div className="data">{trade?.profit?.toFixed(2)}</div>
-        <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
-        {/* Render more trade details as needed */}
-      </div>
-    ))
+    .map((trade, index) => {
+     
+      totalProfit += trade.profit || 0; // Increment total profit with trade's profit
+      return (
+        <div key={index} className="trade-item">
+          <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+          <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+          <div className={`data ${trade.profit > 0 ? 'red-text' : 'green-text'}`}>{trade?.stockName}</div>
+          <div className="data">{trade?.buyPrice.toFixed(2)}</div>
+          <div className="data">{trade?.salePrice.toFixed(2)}</div>
+          <div className="data">{trade?.quantity.toFixed(1)}</div>
+          <div className="data">{trade?.profit?.toFixed(2)}</div>
+          <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+          {/* Render more trade details as needed */}
+        </div>
+      );
+    })
 )}
+
+
+
 
 {!filterButton && !renderAllButton && (
   sortedTrades
     .filter(trade => trade?.owner === currentUser)
-    .map((trade, index) => (
-      <div key={index} className="trade-item">
-        <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
-        <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
-        <div className="data">{trade?.stockName}</div>
-        <div className="data">{trade?.buyPrice}</div>
-        <div className="data">{trade?.salePrice}</div>
-        <div className="data">{trade?.quantity}</div>
-        <div className="data">{trade?.profit?.toFixed(2)}</div>
-        <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
-        {/* Render more trade details as needed */}
-      </div>
-    ))
+    .map((trade, index) => {
+      
+      totalProfit += trade.profit || 0; // Increment total profit with trade's profit
+      return (
+        <div key={index} className="trade-item">
+          <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+          <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+          <div className={`data ${trade.profit > 0 ? 'red-text' : 'green-text'}`}>{trade?.stockName}</div>
+          <div className="data">{trade?.buyPrice.toFixed(2)}</div>
+          <div className="data">{trade?.salePrice.toFixed(2)}</div>
+          <div className="data">{trade?.quantity.toFixed(1)}</div>
+          <div className="data">{trade?.profit?.toFixed(2)}</div>
+          <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+          {/* Render more trade details as needed */}
+        </div>
+      );
+    })
 )}
 
 
         </div>
+
+        <div className='pt-3'></div>
+
+        <div  >
+    <div className='pt-3'></div>
+
+<div className='responsive-text-container'>
+    <h5 className='responsive-text'>
+        {totalProfit > 0 ? "本階段共獲利 $" + totalProfit.toFixed(2) + " , 請保持!!!" : "本階段共損失 $" + totalProfit.toFixed(2) + " ，請加油!!!"}
+    </h5>
+</div>
+
+</div>
+
+
+
+        
+
+       
 
         <div className='pt-5'></div>
         <div>
