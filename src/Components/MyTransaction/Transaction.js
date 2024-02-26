@@ -27,8 +27,10 @@ const Transaction = () => {
     const filtered = allTrades.filter(item => {
       return item?.saleDate >= startDate && item?.saleDate <= endDate;
     });
-    setFilteredData(filtered);
+ 
 
+    setFilteredData(filtered);
+ 
     setRenderAllButton(false);
 
     console.log("Show filtered data.")
@@ -84,10 +86,8 @@ const Transaction = () => {
 
  
   const openModal = () => {
-  console.log("Button clicked");
-  setShowModal(true);
-};
-
+    setShowModal(true);
+  };
 
   const closeModal = () => {
     setShowModal(false);
@@ -182,11 +182,6 @@ const Transaction = () => {
     getTrades();
   }, []);
 
- useEffect(() => {
-  console.log("showModal state:", showModal);
-}, [showModal]);
-
-
  
   console.log("Filtered data", filteredData);
 
@@ -257,19 +252,24 @@ const Transaction = () => {
       <div className='pt-5'></div>
 
       <div className="add-record-button">
-          <button onClick={() => { console.log("Button clicked"); openModal(); }}>新增紀錄</button>
-
+          <button onClick={openModal}>新增紀錄</button>
         </div>
 
         <div className='pt-5'></div>
 
-        <ModalForm
-          showModal={showModal}
-          closeModal={closeModal}
-          formData={formData}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
+        {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>&times;</span>
+            <ModalForm
+              closeModal={closeModal}
+              formData={formData}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </div>
+        </div>
+      )}
 
         <div className="rolling-container">
           {/* Header row */}
@@ -284,63 +284,58 @@ const Transaction = () => {
             <div className="attribute" style={{ fontWeight: 'bold' }}>%</div>
           </div>
 
-          {filteredData && Array.isArray(filteredData) && filteredData.length !== 0 && filterButton ? (
-  filteredData.map((trade, index) => {
-    if (trade?.owner === currentUser) {
-      return (
-        <div key={index} className="trade-item">
-          <div className="data">{trade?.saleDate.substring(0, 10)}</div>
-          <div className="data">{trade?.buyDate.substring(0, 10)}</div>
-          <div className="data">{trade?.stockName}</div>
-          <div className="data">{trade?.buyPrice}</div>
-          <div className="data">{trade?.salePrice}</div>
-          <div className="data">{trade?.quantity}</div>
-          <div className="data">{trade?.profit?.toFixed(2)}</div>
-          <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
-          {/* Render more trade details as needed */}
-        </div>
-      );
-    }
-  })
-) : (
-  (renderAllButton && sortedTrades.length !== 0) ? (
-    sortedTrades.map((trade, index) => {
-      if (trade?.owner === currentUser) {
-        return (
-          <div key={index} className="trade-item">
-            <div className="data">{trade?.saleDate.substring(0, 10)}</div>
-            <div className="data">{trade?.buyDate.substring(0, 10)}</div>
-            <div className="data">{trade?.stockName}</div>
-            <div className="data">{trade?.buyPrice}</div>
-            <div className="data">{trade?.salePrice}</div>
-            <div className="data">{trade?.quantity}</div>
-            <div className="data">{trade?.profit?.toFixed(2)}</div>
-            <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
-            {/* Render more trade details as needed */}
-          </div>
-        );
-      }
-    })
-  ) : (
-    sortedTrades.map((trade, index) => {
-      if (trade?.owner === currentUser) {
-        return (
-          <div key={index} className="trade-item">
-            <div className="data">{trade?.saleDate.substring(0, 10)}</div>
-            <div className="data">{trade?.buyDate.substring(0, 10)}</div>
-            <div className="data">{trade?.stockName}</div>
-            <div className="data">{trade?.buyPrice}</div>
-            <div className="data">{trade?.salePrice}</div>
-            <div className="data">{trade?.quantity}</div>
-            <div className="data">{trade?.profit?.toFixed(2)}</div>
-            <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
-            {/* Render more trade details as needed */}
-          </div>
-        );
-      }
-    })
-  )
+          {filterButton && (
+  filteredData.map((trade, index) => (
+    <div key={index} className="trade-item">
+      <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+      <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+      <div className="data">{trade?.stockName}</div>
+      <div className="data">{trade?.buyPrice}</div>
+      <div className="data">{trade?.salePrice}</div>
+      <div className="data">{trade?.quantity}</div>
+      <div className="data">{trade?.profit?.toFixed(2)}</div>
+      <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+      {/* Render more trade details as needed */}
+    </div>
+  ))
 )}
+
+{renderAllButton && (
+  sortedTrades
+    .filter(trade => trade?.owner === currentUser)
+    .map((trade, index) => (
+      <div key={index} className="trade-item">
+        <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+        <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+        <div className="data">{trade?.stockName}</div>
+        <div className="data">{trade?.buyPrice}</div>
+        <div className="data">{trade?.salePrice}</div>
+        <div className="data">{trade?.quantity}</div>
+        <div className="data">{trade?.profit?.toFixed(2)}</div>
+        <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+        {/* Render more trade details as needed */}
+      </div>
+    ))
+)}
+
+{!filterButton && !renderAllButton && (
+  sortedTrades
+    .filter(trade => trade?.owner === currentUser)
+    .map((trade, index) => (
+      <div key={index} className="trade-item">
+        <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+        <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+        <div className="data">{trade?.stockName}</div>
+        <div className="data">{trade?.buyPrice}</div>
+        <div className="data">{trade?.salePrice}</div>
+        <div className="data">{trade?.quantity}</div>
+        <div className="data">{trade?.profit?.toFixed(2)}</div>
+        <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+        {/* Render more trade details as needed */}
+      </div>
+    ))
+)}
+
 
         </div>
 
