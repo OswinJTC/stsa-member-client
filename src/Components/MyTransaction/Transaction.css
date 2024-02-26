@@ -121,7 +121,7 @@
     flex: 1;
     padding-right: 0; /* Adjust as needed */
     margin: 0 auto; /* Center the form column within the row */
-    max-width: 300px; /* Set a maximum width for each column */
+    width: 50%;
   }
   
   
@@ -147,7 +147,6 @@
   .buttton{
     width: 100%;
     font-size: 26px;
- 
   }
   
   /* Media query for smaller devices */
@@ -163,19 +162,13 @@
       align-items: center; /* Center the form rows vertically */
     }
 
-    .form-row {
-      height: 150px;
+    .attribute{
+      width: 10px;
     }
-  }
 
-  @media screen and (max-width: 750px) {
     
-
-    .form-row {
-      height: 350px;
-    }
   }
-  
+ 
 
   .red-text {
     color: rgb(180, 3, 3);
