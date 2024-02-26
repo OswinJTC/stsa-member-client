@@ -16,11 +16,15 @@ const Transaction = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [filterButton, setFilteredButton] = useState(false);
   const [renderAllButton, setRenderAllButton] = useState(false);
+  const [searchButton, setSearchButton] = useState(false);
+  const [searchData, setSearchData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   
 
   let totalProfit = 0;
 
   console.log("Filtered data: ", filteredData)
+  
 
   
 
@@ -31,8 +35,6 @@ const Transaction = () => {
 
     setFilteredButton(true);
     
-
- 
     // Filter data based on the user-defined date range
     const filtered = allTrades.filter(item => {
       return item?.saleDate >= startDate && item?.saleDate <= endDate;
@@ -40,8 +42,9 @@ const Transaction = () => {
  
 
     setFilteredData(filtered);
- 
+    setSearchButton(false)
     setRenderAllButton(false);
+    
 
     console.log("Show filtered data.")
 
@@ -54,11 +57,13 @@ const Transaction = () => {
     setRenderAllButton(true);
 
     setFilteredButton(false);
+    setSearchButton(false);
 
     
 
     console.log("Show all data.")
   }
+ 
  
   const sortedTrades = allTrades.sort((a, b) => {
     // Assuming saleDate is in the format 'yyyy-mm-dd'
@@ -96,12 +101,10 @@ const Transaction = () => {
   const backHome = () => {
     navigate("/");
   };
-
  
   const openModal = () => {
     setShowModal(true);
   };
-
   const closeModal = () => {
     setShowModal(false);
   };
@@ -190,6 +193,27 @@ const Transaction = () => {
     }
   };
   
+  const handleSearch = () => {
+
+    totalProfit = 0;
+    setSearchButton(true);
+
+    const searched = allTrades.filter(trade =>
+      trade?.stockName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    setSearchData(searched);
+
+
+    
+
+    setRenderAllButton(false);
+    setFilteredButton(false);
+
+    
+
+    console.log("Searched data: ", searchData)
+  };
 
   useEffect(() => {
     getTrades();
@@ -209,10 +233,10 @@ const Transaction = () => {
         
         <h1 style={{ fontFamily: 'serif', fontSize: '82px', fontWeight: 'bold', color: 'black' }}>歷史交易紀錄</h1>
         
-
-          <div style={{ fontSize: '18px' }}>
-            <button onClick={handleRenderAll}>顯示全部資料</button>
-          </div>
+<div className='pt-3'></div>
+        <div className="add-record-button">
+          <button onClick={openModal}>新增紀錄</button>
+        </div>
 
           <div className='pt-5'></div>
         
@@ -247,23 +271,35 @@ const Transaction = () => {
         
           <div className='pt-3'></div>
 
-          <div style={{ fontSize: '16px' }}>
+          <div style={{ fontSize: '30px' }}>
             <button onClick={handleFilter}>開始篩選</button>
           </div>
-          
+
+          <div className='pt-3'></div>
+
+          <div style={{ display: 'inline', fontSize: '20px', color: 'black' }}>或</div>
+          <div className='pt-3'></div>
+          <div style={{ fontSize: '16px' }}>
+            <button onClick={handleRenderAll}>顯示全部資料</button>
+          </div>
+
+     
           <div className='pt-1'></div>
         </div>
       </div>
 
     </div>
-
-      <div className='pt-5'></div>
-
-      <div className="add-record-button">
-          <button onClick={openModal}>新增紀錄</button>
-        </div>
+      
 
         <div className='pt-5'></div>
+
+        
+
+<div className='pt-3'></div>
+
+
+
+        <div className='pt-3'></div>
 
         
         {showModal && (
@@ -276,6 +312,12 @@ const Transaction = () => {
           新增交易紀錄
         </h3>
       </div>
+
+      
+
+      <div className='pt-4'></div>
+
+      
 
       <span className="close" onClick={closeModal}>&times;</span>
 
@@ -321,9 +363,36 @@ const Transaction = () => {
   </div>
 )}
 
-      
+
+  
+  <div  >
+    <div className="input-container" >
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={e => setSearchQuery(e.target.value)}
+        placeholder="請輸入股票名稱"
+        className="input-box"
+        style={{ marginRight: '10px' }}
+      />
+      <button
+        onClick={handleSearch}
+        className="search-button"
+        style={{ width: "100px" }}
+      >
+        搜索
+      </button>
+    </div>
+  </div>
+ 
 
         <div className="rolling-container">
+
+        
+
+
+<div className= "pt-3"></div>
+        
           {/* Header row */}
           <div className="header-row">
             <div className="attribute" style={{ fontWeight: 'bold' }}>平倉日期</div>
@@ -338,21 +407,49 @@ const Transaction = () => {
 
           {filterButton && (
   filteredData.map((trade, index) => {
- 
-    totalProfit += trade.profit || 0; // Increment total profit with trade's profit
-    return (
-      <div key={index} className="trade-item">
-        <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
-        <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
-        <div className={`data ${trade.profit > 0 ? 'red-text' : 'green-text'}`}>{trade?.stockName}</div>
-        <div className="data">{trade?.buyPrice.toFixed(2)}</div>
-        <div className="data">{trade?.salePrice.toFixed(2)}</div>
-        <div className="data">{trade?.quantity.toFixed(1)}</div>
-        <div className="data">{trade?.profit?.toFixed(2)}</div>
-        <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
-        {/* Render more trade details as needed */}
-      </div>
-    );
+    // Check if the owner is the current user
+    if (trade.owner === currentUser) {
+      totalProfit += trade.profit || 0; // Increment total profit with trade's profit
+      return (
+        <div key={index} className="trade-item">
+          <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+          <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+          <div className={`data ${trade.profit > 0 ? 'red-text' : 'green-text'}`}>{trade?.stockName}</div>
+          <div className="data">{trade?.buyPrice.toFixed(2)}</div>
+          <div className="data">{trade?.salePrice.toFixed(2)}</div>
+          <div className="data">{trade?.quantity.toFixed(1)}</div>
+          <div className="data">{trade?.profit?.toFixed(2)}</div>
+          <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+          {/* Render more trade details as needed */}
+        </div>
+      );
+    } else {
+      return null; // If the owner is not the current user, don't render this trade
+    }
+  })
+)}
+
+{searchButton && (
+  searchData.map((trade, index) => {
+    // Check if the owner is the current user
+    if (trade.owner === currentUser) {
+      totalProfit += trade.profit || 0; // Increment total profit with trade's profit
+      return (
+        <div key={index} className="trade-item">
+          <div className="data">{trade?.saleDate?.substring(0, 10)}</div>
+          <div className="data">{trade?.buyDate?.substring(0, 10)}</div>
+          <div className={`data ${trade.profit > 0 ? 'red-text' : 'green-text'}`}>{trade?.stockName}</div>
+          <div className="data">{trade?.buyPrice.toFixed(2)}</div>
+          <div className="data">{trade?.salePrice.toFixed(2)}</div>
+          <div className="data">{trade?.quantity.toFixed(1)}</div>
+          <div className="data">{trade?.profit?.toFixed(2)}</div>
+          <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+          {/* Render more trade details as needed */}
+        </div>
+      );
+    } else {
+      return null; // If the owner is not the current user, don't render this trade
+    }
   })
 )}
 
@@ -384,7 +481,7 @@ const Transaction = () => {
 
 
 
-{!filterButton && !renderAllButton && (
+{!filterButton && !renderAllButton && !searchButton  && (
   sortedTrades
     .filter(trade => trade?.owner === currentUser)
     .map((trade, index) => {
@@ -416,18 +513,18 @@ const Transaction = () => {
 
 <div className='responsive-text-container'>
     <h5 className='responsive-text'>
-        {totalProfit > 0 ? "本階段共獲利 $" + totalProfit.toFixed(2) + " , 請保持!!!" : "本階段共損失 $" + totalProfit.toFixed(2) + " ，請加油!!!"}
+    {totalProfit > 0 
+  ? "本階段共獲利 $" + totalProfit.toFixed(2) + " , 請保持!!!" 
+  : totalProfit < 0 
+    ? "本階段共損失 $" + totalProfit.toFixed(2) + " ，請加油!!!" 
+    : "本階段獲利 $" + totalProfit.toFixed(2) + " ，這麼剛好!!!" 
+}
+
     </h5>
 </div>
 
 </div>
-
-
-
-        
-
-       
-
+ 
         <div className='pt-5'></div>
         <div>
           <button type="button" onClick={backHome}>返回首頁</button>
