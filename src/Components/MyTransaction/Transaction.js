@@ -3,8 +3,7 @@ import api from '../../api/axiosConfig';
 import './Transaction.css';
 import { useNavigate } from 'react-router-dom';
 import ModalForm from '../MyModalForm/ModalForm';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+ 
 
 const Transaction = () => {
   const currentUser = localStorage?.getItem("loggedInUserName") || "";
@@ -13,18 +12,38 @@ const Transaction = () => {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [filteredData, setFilteredData] = useState(allTrades);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filterButton, setFilteredButton] = useState(false);
+  const [renderAllButton, setRenderAllButton] = useState(false);
 
   console.log("Filtered data: ", filteredData)
 
   const handleFilter = () => {
+
+    setFilteredButton(true);
+
+ 
     // Filter data based on the user-defined date range
     const filtered = allTrades.filter(item => {
       return item?.saleDate >= startDate && item?.saleDate <= endDate;
     });
     setFilteredData(filtered);
+
+    setRenderAllButton(false);
+
+    console.log("Show filtered data.")
+
+  
   };
 
+  const handleRenderAll = () =>{
+
+    setRenderAllButton(true);
+
+    setFilteredButton(false);
+
+    console.log("Show all data.")
+  }
  
   const sortedTrades = allTrades.sort((a, b) => {
     // Assuming saleDate is in the format 'yyyy-mm-dd'
@@ -63,6 +82,7 @@ const Transaction = () => {
     navigate("/");
   };
 
+ 
   const openModal = () => {
     setShowModal(true);
   };
@@ -160,6 +180,11 @@ const Transaction = () => {
     getTrades();
   }, []);
 
+ 
+  console.log("Filtered data", filteredData);
+
+ 
+
   return (
     <div className="transaction-background">
       <div className="transaction-container">
@@ -168,10 +193,17 @@ const Transaction = () => {
         <div className='pt-3'></div>
         
         <h1 style={{ fontFamily: 'serif', fontSize: '82px', fontWeight: 'bold', color: 'black' }}>歷史交易紀錄</h1>
+        
 
-        <div className='pt-5'></div>
+          <div style={{ fontSize: '18px' }}>
+            <button onClick={handleRenderAll}>顯示全部資料</button>
+          </div>
+
+          <div className='pt-5'></div>
        
-        {/* Button to open modal */}
+       
+
+          
         
 
         <div className='pt-5'></div>
@@ -202,11 +234,12 @@ const Transaction = () => {
               onChange={e => setEndDate(e.target.value)}
             />
           </div>
+        
           <div className='pt-3'></div>
 
-          <div style={{ fontSize: '24px' }}>
-            <button>馬上篩選</button>
-      </div>
+          <div style={{ fontSize: '16px' }}>
+            <button onClick={handleFilter}>開始篩選</button>
+          </div>
           
           <div className='pt-1'></div>
         </div>
@@ -243,29 +276,8 @@ const Transaction = () => {
             <div className="attribute" style={{ fontWeight: 'bold' }}>%</div>
           </div>
 
-          {/* Map over allTrades and render each trade if the owner matches currentUser */}
-          {filteredData.length !== 0 ? (
+          {filteredData && Array.isArray(filteredData) && filteredData.length !== 0 && filterButton ? (
   filteredData.map((trade, index) => {
-    if (trade?.owner === currentUser) {
-      return (
-        <div key={index} className="trade-item">
-          <div className="data">{trade?.saleDate.substring(0, 10)}</div>
-          <div className="data">{trade?.buyDate.substring(0, 10)}</div>
-          <div className="data">{trade?.stockName}</div>
-          <div className="data">{trade?.buyPrice}</div>
-          <div className="data">{trade?.salePrice}</div>
-          <div className="data">{trade?.quantity}</div>
-          <div className="data">{trade?.profit?.toFixed(2)}</div>
-          <div className="data">{trade?.percentAmount}%</div>
-          {/* Render more trade details as needed */}
-        </div>
-      );
-    } else {
-      return null; // Don't render if the owner doesn't match currentUser
-    }
-  })
-) : (
-  sortedTrades?.map((trade, index) => {
     if (trade?.owner === currentUser) {
       return (
         <div key={index} className="trade-item">
@@ -280,10 +292,46 @@ const Transaction = () => {
           {/* Render more trade details as needed */}
         </div>
       );
-    } else {
-      return null; // Don't render if the owner doesn't match currentUser
     }
   })
+) : (
+  (renderAllButton && sortedTrades.length !== 0) ? (
+    sortedTrades.map((trade, index) => {
+      if (trade?.owner === currentUser) {
+        return (
+          <div key={index} className="trade-item">
+            <div className="data">{trade?.saleDate.substring(0, 10)}</div>
+            <div className="data">{trade?.buyDate.substring(0, 10)}</div>
+            <div className="data">{trade?.stockName}</div>
+            <div className="data">{trade?.buyPrice}</div>
+            <div className="data">{trade?.salePrice}</div>
+            <div className="data">{trade?.quantity}</div>
+            <div className="data">{trade?.profit?.toFixed(2)}</div>
+            <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+            {/* Render more trade details as needed */}
+          </div>
+        );
+      }
+    })
+  ) : (
+    sortedTrades.map((trade, index) => {
+      if (trade?.owner === currentUser) {
+        return (
+          <div key={index} className="trade-item">
+            <div className="data">{trade?.saleDate.substring(0, 10)}</div>
+            <div className="data">{trade?.buyDate.substring(0, 10)}</div>
+            <div className="data">{trade?.stockName}</div>
+            <div className="data">{trade?.buyPrice}</div>
+            <div className="data">{trade?.salePrice}</div>
+            <div className="data">{trade?.quantity}</div>
+            <div className="data">{trade?.profit?.toFixed(2)}</div>
+            <div className="data">{trade?.percentAmount.toFixed(2)}%</div>
+            {/* Render more trade details as needed */}
+          </div>
+        );
+      }
+    })
+  )
 )}
 
         </div>
