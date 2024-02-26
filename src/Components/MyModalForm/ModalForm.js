@@ -2,6 +2,8 @@ import React from 'react';
 import './ModalForm.css';
 
 const ModalForm = ({ showModal, closeModal, formData, handleChange, handleSubmit }) => {
+
+  console.log("Received showModal boolean:",showModal);
   return (
     <>
       {showModal && (
