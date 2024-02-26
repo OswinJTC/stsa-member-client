@@ -163,4 +163,37 @@
   }
   
 
+  .red-text {
+    color: rgb(180, 3, 3);
+    font-weight: bold;
+    font-size: large;
+  }
+  
+  .green-text {
+    color: rgb(2, 131, 2);
+    font-weight: bold;
+    font-size: large;
+  }
+
+  .responsive-text-container {
+    display: inline-block;
+    background-color: rgba(128, 128, 128, 0.5);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.responsive-text {
+    font-family: serif;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .responsive-text {
+        font-size: 24px; /* Adjust font size for smaller devices */
+    }
+}
+
   
