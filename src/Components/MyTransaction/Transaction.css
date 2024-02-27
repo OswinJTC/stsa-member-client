@@ -18,35 +18,51 @@
   font-size: 30px;
 }
 
+/* CSS for header row */
 .header-row {
   display: flex;
   position: sticky;
   top: 0;
   background-color: #ededed;
-  padding: 10px;
   border: 1px solid #b1b0b0;
+  z-index: 1; /* Ensure header stays above data rows */
+  align-items: center; /* Center items vertically */
 }
 
-.attribute, .data {
+/* CSS for data rows */
+.trade-item {
+  display: flex;
+  padding: 8px;
+  border-bottom: 2px solid #ccc;
+  border: 1px solid #b1b0b0;
+  background-color: white;
+  align-items: center;
+}
+
+/* Common styles for both header and data */
+
+.data {
+  flex: 1;
+  text-align: center;
+  padding: 0;
+}
+
+.attribute {
   flex: 1;
   text-align: center;
   padding: 8px;
 }
 
-.trade-item {
-  display: flex;
-  padding: 10px;
-  border-bottom: 2px solid #ccc;
-  border: 1px solid #b1b0b0;
-  background-color: white;
-}
-
-.trade-item .data {
+/* Action icons */
+.action-icons {
+  flex: 1; /* Ensure action icons take the same space */
   text-align: center;
-  overflow: hidden;
-  white-space: nowrap;
+  padding: 0;
+  align-items: center;
+ 
 }
 
+/* Responsive adjustments */
 @media screen and (max-width: 1288px) {
   .rolling-container {
     overflow-x: auto;
@@ -54,16 +70,23 @@
   }
 
   .trade-item {
-    width: 980px;
+    width: 950px;
   }
 
-  .header-row, .attribute {
-    width: 980px;
+  .header-row {
+    width: 950px;
+  }
+
+  .attribute {
+    width: 100px; /* Adjust width for smaller screens */
   }
 
   .data {
-    flex: none;
-    min-width: 120px;
+    width: 100px;
+  }
+
+  .action-icons{
+    width:100px;
   }
 }
 
