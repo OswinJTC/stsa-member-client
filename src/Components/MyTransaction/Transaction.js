@@ -3,6 +3,10 @@ import api from "../../api/axiosConfig";
 import "./Transaction.css";
 import { useNavigate } from "react-router-dom";
 
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faEdit } from "@fortawesome/free-solid-svg-icons";
+
 const Transaction = () => {
   const currentUser = localStorage?.getItem("loggedInUserName") || "";
   const [currentUserInstance, setCurrentUserInstance] = useState();
@@ -25,8 +29,6 @@ const Transaction = () => {
     setShowModal(false);
   };
 
-  
-
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
@@ -39,12 +41,9 @@ const Transaction = () => {
     };
 
     fetchCurrentUser();
-
- 
   }, []);
 
   let totalProfit = 0;
-
 
   const handleFilter = () => {
     totalProfit = 0;
@@ -63,6 +62,24 @@ const Transaction = () => {
     console.log("Filtered data", filteredData);
   };
 
+  const handleDelete = async (tradeId, owner) => {
+    // Delete the trade from the database
+    try {
+        const response = await api.delete("/tradeApi/deleteTrade", {
+            data: {
+                tradeReference: tradeId,
+                owner: owner,
+            }
+        });
+
+
+        console.log("Trade successfully deleted from the database");
+    } catch (error) {
+        console.error("Error deleting trade from the database:", error);
+    }
+};
+
+
   const handleRenderAll = () => {
     totalProfit = 0;
 
@@ -75,52 +92,45 @@ const Transaction = () => {
   };
 
   useEffect(() => {
-    const sortTrades = async() => {
+    const sortTrades = async () => {
       try {
         const temp = localStorage.getItem("loggedInUserName");
         const response = await api.get(`/userApi/${temp}`);
         setCurrentUserInstance(response.data);
-  
+
         const sorted = response.data?.user_trades?.slice().sort((a, b) => {
           const dateA = new Date(a.saleDate);
           const dateB = new Date(b.saleDate);
           return dateB - dateA;
         });
-  
+
         setSortedTrades(sorted);
       } catch (err) {
         console.log(err);
       }
     };
-    
+
     sortTrades();
-}, []);  
+  }, []);
 
-  
-
-  const sortTrades = async() => {
-
+  const sortTrades = async () => {
     try {
       const temp = localStorage.getItem("loggedInUserName");
       const response = await api.get(`/userApi/${temp}`);
       setCurrentUserInstance(response.data);
 
-      const sorted =  response.data?.user_trades?.slice().sort((a, b) => {
+      const sorted = response.data?.user_trades?.slice().sort((a, b) => {
         const dateA = new Date(a.saleDate);
         const dateB = new Date(b.saleDate);
         return dateB - dateA;
       });
-       
 
       setSortedTrades(sorted);
     } catch (err) {
       console.log(err);
     }
-    
-    
   };
 
- 
   const [formData, setFormData] = useState({
     stockName: "",
     buyPrice: "",
@@ -196,7 +206,6 @@ const Transaction = () => {
         saleDate: formData.saleDate,
       });
 
- 
       sortTrades();
 
       // Clear form data
@@ -230,23 +239,15 @@ const Transaction = () => {
 
     setRenderAllButton(false);
     setFilteredButton(false);
- 
-
   };
 
   useEffect(() => {
-
     sortTrades();
   }, []);
 
   console.log("The searched data is ", searchData);
   console.log("Now The User's Trades are", currentUserInstance?.user_trades);
   console.log("The sorted data is ", sortedTrades);
-
-  
-  
-
-  
 
   return (
     <div className="transaction-background">
@@ -399,7 +400,12 @@ const Transaction = () => {
                       />
                     </div>
                     <div className="form-column">
-                      <div className="myAttribute" style={{ fontWeight: "bold" }}>賣出價</div>
+                      <div
+                        className="myAttribute"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        賣出價
+                      </div>
                       <input
                         type="text"
                         name="salePrice"
@@ -520,6 +526,9 @@ const Transaction = () => {
               <div className="attribute" style={{ fontWeight: "bold" }}>
                 %
               </div>
+              <div className="attribute" style={{ fontWeight: "bold" }}>
+                變更
+              </div>
             </div>
 
             {filterButton &&
@@ -547,7 +556,34 @@ const Transaction = () => {
                     <div className="data">
                       {trade?.percentAmount.toFixed(2)}%
                     </div>
-                    {/* Render more trade details as needed */}
+
+                    <div
+                      className="action-icons"
+                      style={{ alignItems: "center" }}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Stop event propagation
+                        handleDelete(trade?.id, trade?.owner);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleDelete(trade?.id, trade?.owner);
+                        }
+                      }}
+                      role="button"
+                      tabIndex="0"
+                    >
+                      <div style={{ cursor: "pointer" }}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Stop event propagation
+                          handleDelete(trade?.referenceNumber, trade?.owner);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
                   </div>
                 );
               })}
@@ -577,7 +613,34 @@ const Transaction = () => {
                     <div className="data">
                       {trade?.percentAmount.toFixed(2)}%
                     </div>
-                    {/* Render more trade details as needed */}
+
+                    <div
+                      className="action-icons"
+                      style={{ alignItems: "center" }}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Stop event propagation
+                        handleDelete(trade?.id, trade?.owner);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleDelete(trade?.id, trade?.owner);
+                        }
+                      }}
+                      role="button"
+                      tabIndex="0"
+                    >
+                      <div style={{ cursor: "pointer" }}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Stop event propagation
+                          handleDelete(trade?.referenceNumber, trade?.owner);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
                   </div>
                 );
               })}
@@ -607,7 +670,34 @@ const Transaction = () => {
                     <div className="data">
                       {trade?.percentAmount.toFixed(2)}%
                     </div>
-                    {/* Render more trade details as needed */}
+
+                    <div
+                      className="action-icons"
+                      style={{ alignItems: "center" }}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Stop event propagation
+                        handleDelete(trade?.id, trade?.owner);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleDelete(trade?.id, trade?.owner);
+                        }
+                      }}
+                      role="button"
+                      tabIndex="0"
+                    >
+                      <div style={{ cursor: "pointer" }}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Stop event propagation
+                          handleDelete(trade?.referenceNumber, trade?.owner);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
                   </div>
                 );
               })}
@@ -639,7 +729,37 @@ const Transaction = () => {
                     <div className="data">
                       {trade?.percentAmount.toFixed(2)}%
                     </div>
-                    {/* Render more trade details as needed */}
+
+                    <div
+                      className="action-icons"
+                      style={{ alignItems: "center" }}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Stop event propagation
+                        handleDelete(trade?.id, trade?.owner);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleDelete(trade?.id, trade?.owner);
+                        }
+                      }}
+                      role="button"
+                      tabIndex="0"
+                    >
+                      <div style={{ cursor: "pointer" }}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </div>
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        onClick={(e) => {
+                          console.log("代碼:", trade?.referenceNumber)
+                          e.stopPropagation(); // Stop event propagation
+                          console.log("代碼:", trade?.referenceNumber)
+                          handleDelete(trade?.referenceNumber, trade?.owner);
+                          
+                        }}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
                   </div>
                 );
               })}
