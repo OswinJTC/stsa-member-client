@@ -1,208 +1,189 @@
-
-.transaction-container{
-    background-image: url("https://images.freeimages.com/images/large-previews/7be/sunset-1369613.jpg?fmt=webp&w=500");
-    background-position: center;
-    background-size: cover;
+.transaction-container {
+  background-image: url("https://images.freeimages.com/images/large-previews/7be/sunset-1369613.jpg?fmt=webp&w=500");
+  background-position: center;
+  background-size: cover;
 }
 
-
 .rolling-container {
-    max-height: 400px;
-    overflow-x: auto;
-    overflow-y: auto;
-    position: relative;
-    width: 80%;
-    margin: 0 auto;
-    
-  }
-.add-record-button{
+  max-height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  z-index: 100; /* Set a higher z-index value */
+}
+
+.add-record-button {
   font-size: 30px;
 }
 
- 
-  
-  .header-row {
-    display: flex;
-    position: sticky;
-    top: 0;
-    background-color: #ededed;
-    padding: 10px;
-    border: 1px solid #b1b0b0;
-  }
-  
-  .attribute, .data {
-    flex: 1;
-    text-align: center;
-    padding: 8px;
-    
-  }
-  
-  .trade-item {
-    display: flex;
-    padding: 10px;
-    border-bottom: 2px solid #ccc;
-    border: 1px solid #b1b0b0;
-    background-color: white;
-  }
-  
-  .trade-item .data {
-    text-align: center;
-    overflow: hidden;
+.header-row {
+  display: flex;
+  position: sticky;
+  top: 0;
+  background-color: #ededed;
+  padding: 10px;
+  border: 1px solid #b1b0b0;
+}
+
+.attribute, .data {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+}
+
+.trade-item {
+  display: flex;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+  border: 1px solid #b1b0b0;
+  background-color: white;
+}
+
+.trade-item .data {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1288px) {
+  .rolling-container {
+    overflow-x: auto;
     white-space: nowrap;
   }
 
-  
-  
-  @media screen and (max-width: 1288px) {
-    .rolling-container {
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-  
-    .trade-item {
-      width: 980px;
-      
-    }
-
-    .header-row {
-        width: 980px; /* 應該不能這樣設，但先不管 */
-    }
-  
-    .attribute {
-      width: 980px;  /* 應該不能這樣設，但先不管 */
-    }
-
-    .data {
-        flex: none;
-        min-width: 120px;
-      }
-  };
-  
-
-
-  /*以下是表單*/
-
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
-    display: flex;
-    justify-content: center; /* horizontally center the modal */
-    align-items: center; /* vertically center the modal */
+  .trade-item {
+    width: 980px;
   }
+
+  .header-row, .attribute {
+    width: 980px;
+  }
+
+  .data {
+    flex: none;
+    min-width: 120px;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 998; /* Set a higher z-index value */
   
+}
+
+
+.modal-content {
+  width: 90%;
+  max-width: 1500px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 999; /* Set a higher z-index value */
+}
+
+
+.close {
+  position: absolute;
+  font-size: xx-large;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-column {
+  flex: 1;
+  padding-right: 0;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.attribute {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input {
+  margin-top: 5px;
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+  font-size: 26px;
+}
+
+@media screen and (max-width: 1100px) {
   .modal-content {
-    width: 90%; /* Adjust width as needed */
-    max-width: 1500px; /* Limit the maximum width */
-    background-color: white; /* White background for modal content */
-    padding: 20px;
-    border-radius: 8px;
-    position: relative; /* Adjust position based on modal display */
-  }
-  
-  .close {
-    position: absolute;
-    font-size: xx-large;
-    top: 0;
-    right: 10px;
-    cursor: pointer;
-  }
-  
-  .form-row {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping to new line */
-  
-  }
-  
-  .form-column {
-    flex: 1;
-    padding-right: 0; /* Adjust as needed */
-    margin: 0 auto; /* Center the form column within the row */
-    width: 50%;
-  }
-  
-  
-
-  .attribute {
-    font-weight: bold;
-    font-size: 20px; /* Adjust font size */
-    text-align: center; /* Center the text horizontally */
-    margin-bottom: 5px; /* Add some space below the attribute labels */
-    width: 100%; /* Ensure attribute labels take full width */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  }
-  
-  
-  .input {
-    margin-top: 5px;
-    font-size: 15px; /* Adjust font size */
-    padding: 8px; /* Adjust padding */
-    border-radius: 4px; /* Add border-radius for a rounded appearance */
-    width: 100%; /* Ensure input takes full width */
-  }
-
-  .buttton{
-    width: 100%;
-    font-size: 26px;
-  }
-  
-  /* Media query for smaller devices */
-  @media screen and (max-width: 1100px) {
-    .modal-content {
-      padding: 2px; /* Adjust padding for smaller screens */
-    }
-   
-    .form-column {
-      padding-right: 0; /* Remove right padding */
-      margin-bottom: 10px; /* Add margin between rows */
-      flex-direction: column; /* Change to column layout for smaller screens */
-      align-items: center; /* Center the form rows vertically */
-    }
-
-    .attribute{
-      width: 10px;
-    }
-
-    
+    padding: 2px;
   }
  
-
-  .red-text {
-    color: rgb(180, 3, 3);
-    font-weight: bold;
-    font-size: large;
-  }
-  
-  .green-text {
-    color: rgb(2, 131, 2);
-    font-weight: bold;
-    font-size: large;
+  .form-column {
+    padding-right: 0;
+    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .responsive-text-container {
-    display: inline-block;
-    background-color: rgba(128, 128, 128, 0.5);
-    padding: 5px;
-    border-radius: 5px;
+  .attribute {
+    width: auto;
+  }
+}
+
+.red-text {
+  color: rgb(180, 3, 3);
+  font-weight: bold;
+  font-size: large;
+}
+
+.green-text {
+  color: rgb(2, 131, 2);
+  font-weight: bold;
+  font-size: large;
+}
+
+.responsive-text-container {
+  display: inline-block;
+  background-color: rgba(128, 128, 128, 0.5);
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .responsive-text {
-    font-family: serif;
-    font-size: 40px;
-    font-weight: bold;
-    color: white;
-    margin: 0;
+  font-family: serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
-    .responsive-text {
-        font-size: 24px; /* Adjust font size for smaller devices */
-    }
+  .responsive-text {
+    font-size: 24px;
+  }
 }
-
 
 .input-container {
   display: flex;
@@ -229,47 +210,33 @@
   color: #232e2f;
   font-size: 18px;
   cursor: pointer;
-  font-size: larger;
- 
-
 }
 
 .search-button {
-  /* Your existing styles */
-  transition: background-color 0.3s ease; /* Add transition for smooth color change */
+  transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
-  background-color: #a5b3be; /* Change background color on hover */
- 
+  background-color: #a5b3be;
 }
 
-
-.transaction-heading{
+.transaction-heading {
   font-size: 76px;
 }
 
-/* Media query for responsive design */
 @media (max-width: 850px) {
   .input-box {
-     
-    
     width: 300px;
     height: 40px;
   }
-  
+
   .search-button {
     height: 40px;
     width: 80px;
-    
     font-size: medium;
-  
-  
   }
 
-  .transaction-heading{
-
+  .transaction-heading {
     font-size: 54px;
-
   }
 }
