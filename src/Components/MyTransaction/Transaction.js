@@ -51,7 +51,7 @@ const Transaction = () => {
     setFilteredButton(true);
 
     // Filter data based on the user-defined date range
-    const filtered = currentUserInstance?.user_trades?.filter((item) => {
+    const filtered = sortedTrades?.filter((item) => {
       return item?.saleDate >= startDate && item?.saleDate <= endDate;
     });
 
@@ -60,6 +60,19 @@ const Transaction = () => {
     setRenderAllButton(false);
 
     console.log("Filtered data", filteredData);
+  };
+
+  const tradeFilter = () => {
+
+    console.log("LALALALALA Sorted data", sortedTrades);
+ 
+    const filtered = sortedTrades?.filter((item) => {
+      return item?.saleDate >= startDate && item?.saleDate <= endDate;
+    });
+
+    setFilteredData(filtered);
+ 
+    
   };
 
   const handleDelete = async (tradeId, owner) => {
@@ -72,12 +85,16 @@ const Transaction = () => {
             }
         });
 
+        sortTrades();
+
 
         console.log("Trade successfully deleted from the database");
     } catch (error) {
         console.error("Error deleting trade from the database:", error);
     }
 };
+
+
 
 
   const handleRenderAll = () => {
@@ -126,6 +143,21 @@ const Transaction = () => {
       });
 
       setSortedTrades(sorted);
+
+      const filtered = sorted?.filter((item) => {
+        return item?.saleDate >= startDate && item?.saleDate <= endDate;
+      });
+      
+      setFilteredData(filtered);
+
+      const searched = sorted?.filter((trade) =>
+      trade?.stockName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    setSearchData(searched);
+
+
+
     } catch (err) {
       console.log(err);
     }
@@ -207,6 +239,7 @@ const Transaction = () => {
       });
 
       sortTrades();
+     
 
       // Clear form data
       setFormData({
@@ -243,11 +276,13 @@ const Transaction = () => {
 
   useEffect(() => {
     sortTrades();
+ 
   }, []);
 
   console.log("The searched data is ", searchData);
   console.log("Now The User's Trades are", currentUserInstance?.user_trades);
   console.log("The sorted data is ", sortedTrades);
+  console.log("Filtered data", filteredData);
 
   return (
     <div className="transaction-background">
@@ -578,6 +613,7 @@ const Transaction = () => {
                       <FontAwesomeIcon
                         icon={faTrashCan}
                         onClick={(e) => {
+                          console.log("The tradeID:", trade?.referenceNumber)
                           e.stopPropagation(); // Stop event propagation
                           handleDelete(trade?.referenceNumber, trade?.owner);
                         }}
@@ -751,7 +787,7 @@ const Transaction = () => {
                       <FontAwesomeIcon
                         icon={faTrashCan}
                         onClick={(e) => {
-                          console.log("代碼:", trade?.referenceNumber)
+                          console.log("The tradeID:", trade?.referenceNumber)
                           e.stopPropagation(); // Stop event propagation
                           console.log("代碼:", trade?.referenceNumber)
                           handleDelete(trade?.referenceNumber, trade?.owner);
