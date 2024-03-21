@@ -218,11 +218,11 @@ body.login-background {
 
 @media (max-width: 768px) {
   .the-whole-login-part {
-<<<<<<< HEAD
+ 
     width: 90%; /* Adjusted width for smaller screens */
-=======
+ 
     width: 80%; /* Adjusted width for smaller screens */
->>>>>>> 874d57b4eabe938b6c4991cf15ddc7a56a6c994b
+ 
     height: auto; /* Adjusted height to accommodate content */
     top: 40%; /* Adjusted position from top */
     transform: translate(-50%, -40%); /* Adjusted transform */

@@ -91,11 +91,7 @@
   .buttonWithBackground2:hover .buttonContent {
     color: #697067;
   }
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 874d57b4eabe938b6c4991cf15ddc7a56a6c994b
+ 
 
   /* For screens smaller than 768px (phones), display buttons vertically */
 @media (max-width: 768px) {
@@ -121,9 +117,4 @@
     width: auto; /* Reset width to auto for horizontal layout */
     margin-bottom: 0; /* Reset margin */
   }
-}
-<<<<<<< HEAD
-=======
-
-  
->>>>>>> 874d57b4eabe938b6c4991cf15ddc7a56a6c994b
+} 
