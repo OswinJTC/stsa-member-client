@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import api from "../../api/axiosConfig";
 import "./Transaction.css";
 import { useNavigate } from "react-router-dom";
+import DeletePopOut from "../MyDeletePopOut/DeletePopOut";
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +12,11 @@ const Transaction = () => {
   const currentUser = localStorage?.getItem("loggedInUserName") || "";
   const [currentUserInstance, setCurrentUserInstance] = useState();
   const [sortedTrades, setSortedTrades] = useState([]);
+
   const [showModal, setShowModal] = useState(false);
+  const [showDeletePop, setShowDeletePop] = useState(false);
+  const [tempDeleteData, setTempDeleteData] = useState(null);
+
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -74,6 +79,11 @@ const Transaction = () => {
  
     
   };
+
+  const attempDelete =(tradeId, owner)=>{
+    setTempDeleteData([tradeId, owner])
+    setShowDeletePop(true);
+  }
 
   const handleDelete = async (tradeId, owner) => {
     // Delete the trade from the database
@@ -597,11 +607,11 @@ const Transaction = () => {
                       style={{ alignItems: "center" }}
                       onClick={(e) => {
                         e.stopPropagation(); // Stop event propagation
-                        handleDelete(trade?.id, trade?.owner);
+                        attempDelete(trade?.referenceNumber, trade?.owner);
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
-                          handleDelete(trade?.id, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
                         }
                       }}
                       role="button"
@@ -615,7 +625,7 @@ const Transaction = () => {
                         onClick={(e) => {
                           console.log("The tradeID:", trade?.referenceNumber)
                           e.stopPropagation(); // Stop event propagation
-                          handleDelete(trade?.referenceNumber, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
                         }}
                         style={{ cursor: "pointer" }}
                       />
@@ -655,11 +665,11 @@ const Transaction = () => {
                       style={{ alignItems: "center" }}
                       onClick={(e) => {
                         e.stopPropagation(); // Stop event propagation
-                        handleDelete(trade?.id, trade?.owner);
+                        attempDelete(trade?.referenceNumber, trade?.owner);
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
-                          handleDelete(trade?.id, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
                         }
                       }}
                       role="button"
@@ -672,7 +682,7 @@ const Transaction = () => {
                         icon={faTrashCan}
                         onClick={(e) => {
                           e.stopPropagation(); // Stop event propagation
-                          handleDelete(trade?.referenceNumber, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
                         }}
                         style={{ cursor: "pointer" }}
                       />
@@ -712,11 +722,11 @@ const Transaction = () => {
                       style={{ alignItems: "center" }}
                       onClick={(e) => {
                         e.stopPropagation(); // Stop event propagation
-                        handleDelete(trade?.id, trade?.owner);
+                        attempDelete(trade?.referenceNumber, trade?.owner);
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
-                          handleDelete(trade?.id, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
                         }
                       }}
                       role="button"
@@ -729,7 +739,8 @@ const Transaction = () => {
                         icon={faTrashCan}
                         onClick={(e) => {
                           e.stopPropagation(); // Stop event propagation
-                          handleDelete(trade?.referenceNumber, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
+                      
                         }}
                         style={{ cursor: "pointer" }}
                       />
@@ -771,11 +782,11 @@ const Transaction = () => {
                       style={{ alignItems: "center" }}
                       onClick={(e) => {
                         e.stopPropagation(); // Stop event propagation
-                        handleDelete(trade?.id, trade?.owner);
+                        attempDelete(trade?.referenceNumber, trade?.owner);
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
-                          handleDelete(trade?.id, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
                         }
                       }}
                       role="button"
@@ -790,7 +801,7 @@ const Transaction = () => {
                           console.log("The tradeID:", trade?.referenceNumber)
                           e.stopPropagation(); // Stop event propagation
                           console.log("代碼:", trade?.referenceNumber)
-                          handleDelete(trade?.referenceNumber, trade?.owner);
+                          attempDelete(trade?.referenceNumber, trade?.owner);
                           
                         }}
                         style={{ cursor: "pointer" }}
@@ -800,6 +811,14 @@ const Transaction = () => {
                 );
               })}
           </div>
+
+          {showDeletePop && (
+            <DeletePopOut
+            tempDeleteData = {tempDeleteData}
+            handleDelete = {handleDelete}
+            setShowDeletePop={setShowDeletePop}
+            />  
+          )}
 
           <div className="pt-3"></div>
 
