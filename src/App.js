@@ -21,8 +21,8 @@ function App() {
   const [loggedUsername, setloggedUsername ] = useState();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    document.title = "IM2073 Project";
+ useEffect(()=>{
+    document.title = "股票追蹤管理系統";
   },[])
 
 
