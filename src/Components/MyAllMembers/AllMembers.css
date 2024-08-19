@@ -1,0 +1,50 @@
+.all-member-page {
+  padding: 50px;
+  background-image: url("https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.member-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create four equal columns */
+  gap: 20px;
+  padding: 50px;
+}
+
+.member-card {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Make sure the card takes full width of the grid column */
+}
+
+.member-card h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.member-card p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+
+@media (max-width: 1200px) {
+  .member-list {
+      grid-template-columns: repeat(3, 1fr); /* Three columns on smaller screens */
+  }
+}
+
+@media (max-width: 900px) {
+  .member-list {
+      grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .member-list {
+      grid-template-columns: 1fr; /* Single column on mobile devices */
+  }
+}

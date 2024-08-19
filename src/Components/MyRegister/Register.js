@@ -1,209 +1,190 @@
-import React, { useState , useEffect} from 'react';
+import { useState } from 'react';
 import api from '../../api/axiosConfig';
-import { useNavigate } from 'react-router-dom';
 import './Register.css';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [usernameError, setUsernameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    taiwaneseName: '',
+    englishName: '',
+    email: '',
+    school: '',
+    program: '',
+    year_of_study: '',
+    birthday: '',
+    contact_number: ''
+  });
+
+  const [file, setFile] = useState(null); // New state for the file
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  
 
-  
-  const navigate = useNavigate();  
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-  const handleRegister = async () => {
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]); // Save the file to state
+  };
 
-    
-    
-    let hasError = false;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
-    if (!username) {
-      setUsernameError('缺少用戶名稱!!');
-      hasError = true;
-    } else {
-      setUsernameError('');
-    }
-
-    if (!email) {
-      setEmailError('缺少電子郵件!!');
-      hasError = true;
-    } else {
-      setEmailError('');
-    }
-
-    if (!password) {
-      setPasswordError('缺少密碼!!');
-      hasError = true;
-    } else {
-      setPasswordError('');
-    }
-
-    if (hasError) {
+    // Basic validation to ensure all fields are filled
+    if (Object.values(formData).some(field => field === '') || !file) {
+      setError('請填寫所有欄位並上傳學生證圖片');
       return;
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-    // Check if the email is in a valid format
-    if (!emailPattern.test(email)) {
-        setEmailError('無效電子郵件');
-      console.error('Invalid email address');
-      return; // Exit the function if email is invalid
-    }
+    const formDataObj = new FormData();
+    formDataObj.append('user', new Blob([JSON.stringify(formData)], { type: 'application/json' }));
+    formDataObj.append('file', file);
 
     try {
-      setLoading(true);
-      const response = await api.post("/userApi/register", {
-        username: username,
-        email: email,
-        password: password,
+      const response = await api.post('/userApi/register', formDataObj, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      if (response.status === 201) {
-        console.log('Registration successful!');
-        navigate(`/`);
-      } else {
-        setError('Registration failed. Please try again.');
+      if (response.status === 200) {
+        alert('謝謝您的填寫，請先驗證郵件。資料才會送出～');
+        navigate('/');  // Redirect to the home page
       }
-      setLoading(false);
-    } catch (error) {
-      setError('An error occurred during registration.');
+    } catch (err) {
+      setError('註冊失敗，請稍後再試');
     }
   };
 
-  useEffect(() => {//讓背景圖片只出現在register page
-    document.body.classList.add('register-background'); // Add the class to the body when the component mounts
-    return () => {
-      document.body.classList.remove('register-background'); // Remove the class from the body when the component unmounts
-    };
-  }, []);
+  const backHome = () => {
+    navigate("/");
+  };
 
   return (
+    <div className="register-background">
+      <div className='pt-5'></div>
+      <div className='pt-5'></div>
 
-    
-
-    <div className="the-whole-register-part">
-    
-      <div className="register-title"><span>美股追蹤管理系統</span></div>
-      
-      <div>
-        {emailError || usernameError || passwordError ? (
-          <div className="error">
-                {emailError === "無效電子郵件" ? <div>無效電子郵件</div> : <div>請輸入所有資料！！</div>}
-          </div>
-        ) : null}
+      <div className='home-heading'>
+        <h1 style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold', color: 'black' }}>
+          註冊頁面
+        </h1>
       </div>
 
+      <div className='pt-5'></div>
 
-
-
-      <div className='the-register-form'>
-
-      <form>
-
-      
-
-      <div className="signUpText">Sign Up</div>
-
-        <div className="register-inputRow">
-          <i className="fas fa-user"></i>
-          
-          <div className='register-username-input'>
+      <form onSubmit={handleSubmit} className="register-form">
+        <div>
+          <label>中文名:</label>
           <input
             type="text"
-            placeholder="請輸入用戶名稱"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            name="taiwaneseName"
+            value={formData.taiwaneseName}
+            onChange={handleInputChange}
             required
           />
-          </div>
-         
         </div>
-        
-
-        <div className="register-inputRow">
-          <i className="fas fa-envelope"></i>
-
-          <div className='register-email-input'>
+        <div>
+          <label>英文名:</label>
           <input
             type="text"
-            placeholder="請輸入電子郵件"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="englishName"
+            value={formData.englishName}
+            onChange={handleInputChange}
             required
           />
-          </div>
-          
-          
         </div>
-
-
-
-        <div className="register-inputRow">
-          <i className="fas fa-lock"></i>
-
-          <div className='register-password-input'>
+        <div>
+          <label>Email:</label>
           <input
-            type="password"
-            placeholder="請輸入密碼"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
             required
           />
-          </div>
-           
-
-          
+        </div>
+        <div>
+          <label>學校:</label>
+          <input
+            type="text"
+            name="school"
+            value={formData.school}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>課程:</label>
+          <input
+            type="text"
+            name="program"
+            value={formData.program}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>學年:</label>
+          <input
+            type="text"
+            name="year_of_study"
+            value={formData.year_of_study}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>生日:</label>
+          <input
+            type="text"
+            name="birthday"
+            value={formData.birthday}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>聯絡電話:</label>
+          <input
+            type="text"
+            name="contact_number"
+            value={formData.contact_number}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>學生證圖片:</label> {/* New file input for the student card */}
+          <input
+            type="file"
+            name="studentCard"
+            accept="image/*"
+            onChange={handleFileChange}
+            required
+          />
         </div>
 
+        {error && <div className="error-message">{error}</div>}
 
-      
-        <div className="register-button">
-          <button type="button" onClick={handleRegister}>立即註冊</button>
+        <div className="submit-button pt-3">
+          <button type="submit">提交</button>
         </div>
-
-        <div className="ask-to-signin-link">已經有帳號? <Link to="/">點我登入</Link></div>
-        
       </form>
 
-      {loading && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            width: "80%",
-            textAlign: "center",
-            transform: "translate(-50%, -50%)",
-          
-            color: "white",
-            padding: "20px",
-            borderRadius: "5px",
-            zIndex: "9999",
-          }}
-        >
-          <div className="loading-spinner" />
-          <div className='mt-2'>
-            <h5>系統更新資料庫中，至多需兩分鐘。謝謝您的耐心等待</h5>
-          </div>
-          
-        </div>
-      )}
-
-
-    
-
-    {loading && (
-          <div className="overlay" />
-      )}
+      <div className="back-home">
+        <button type="button" onClick={backHome}>返回首頁</button>
       </div>
+
+      <div className='pt-5'></div>
+      <div className='pt-5'></div>
+      <div className='pt-5'></div>
     </div>
   );
 };

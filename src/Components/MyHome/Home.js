@@ -3,16 +3,19 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
+import AllMembers from '../MyAllMembers/AllMembers';
+import { useNavigate } from 'react-router-dom';
+
+ 
 
 const Home = ({ handleLogout }) => {
-  const [currentUser, setCurrentUser] = useState(localStorage.getItem("loggedInUserName") || "");
+  
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("loggedInUserName");
-    setCurrentUser(storedUser || "");
-  }, []); 
-  const handleLogoutHome = () => {
-    handleLogout();
+  const navigate = useNavigate();
+ 
+
+  const AllMembers = () => {
+    navigate("/AllMembers");
   };
 
 
@@ -23,7 +26,7 @@ const Home = ({ handleLogout }) => {
       
       <div className='home-heading'>
         <h1 style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold', color: 'black' }}>
-          {currentUser}，您好
+          您好
         </h1>
       </div>
 
@@ -42,7 +45,7 @@ const Home = ({ handleLogout }) => {
           color: 'black',
           margin: '0', 
         }}>
-          "活魚逆流而上，死魚隨波逐流"
+          "回家的路很長"
         </h5>
       </div>
 
@@ -52,18 +55,18 @@ const Home = ({ handleLogout }) => {
       <div className="container-fluid">
         <div className="row justify-content-center">
           <div className="col-md-4">
-            <Link to="/Transaction" className="buttonWithBackground1 btn btn-secondary btn-lg btn-block square-btn">
+            <Link to="/Register" className="buttonWithBackground1 btn btn-secondary btn-lg btn-block square-btn">
               <div className="buttonContent">
-                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold' }}>交易歷史</span>
+                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold' }}>會員註冊</span>
               </div>
               <div className="buttonOverlay"></div>
             </Link>
           </div>
 
           <div className="col-md-4">
-            <Link to="/Performance" className="buttonWithBackground2 btn btn-secondary btn-lg btn-block square-btn">
+            <Link to="/Pending" className="buttonWithBackground2 btn btn-secondary btn-lg btn-block square-btn">
               <div className="buttonContent">
-                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold', color: 'black' }}>獲利計算</span>
+                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold'}}>會員審核</span>
               </div>
               <div className="buttonOverlay"></div>
             </Link>
@@ -71,9 +74,14 @@ const Home = ({ handleLogout }) => {
         </div>
       </div>
 
+      <div className="back-home">
+        <button type="button" onClick={AllMembers}>全部會員</button>
+      </div>
+
+
       <div className='pt-5'></div>
       <div className='pt-5'></div>
-      <button type="button" onClick={handleLogoutHome}>馬上登出</button>
+      
       <div className='pt-5'></div>
       <div className='pt-5'></div>
     </div>
