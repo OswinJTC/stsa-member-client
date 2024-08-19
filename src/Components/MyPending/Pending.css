@@ -1,0 +1,64 @@
+.admin-dashboard-page {
+    padding: 50px;
+    background-image: url("https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .approval-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Create four equal columns */
+    gap: 20px;
+    padding: 50px;
+  }
+  
+  .approval-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make sure the card takes full width of the grid column */
+  }
+  
+  .approval-card h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  
+  .approval-card p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  .approval-card button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .approval-card button.reject {
+    background-color: #dc3545;
+  }
+  
+  @media (max-width: 1200px) {
+    .approval-list {
+      grid-template-columns: repeat(3, 1fr); /* Three columns on smaller screens */
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .approval-list {
+      grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .approval-list {
+      grid-template-columns: 1fr; /* Single column on mobile devices */
+    }
+  }
+  
