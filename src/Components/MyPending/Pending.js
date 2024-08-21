@@ -14,9 +14,11 @@ const Pending = () => {
                 const response = await api.get('/userApi/pending');
                 setUsers(response.data);
             } catch (err) {
+
                 setError('Failed to fetch users.');
             } finally {
                 setLoading(false);
+
             }
         };
 
@@ -25,6 +27,7 @@ const Pending = () => {
 
     const handleApprove = async (id) => {
         try {
+
             setLoading(true);
             const response = await api.post(`/userApi/approve/${id}`);
             if (response.status === 200) {
@@ -37,11 +40,13 @@ const Pending = () => {
             setError('Failed to approve user.');
         } finally {
             setLoading(false);
+
         }
     };
 
     const handleReject = async (id) => {
         try {
+
             setLoading(true);
             const response = await api.post(`/userApi/reject/${id}`);
             if (response.status === 200) {
@@ -54,6 +59,7 @@ const Pending = () => {
             setError('Failed to reject user.');
         } finally {
             setLoading(false);
+
         }
     };
 
@@ -61,9 +67,11 @@ const Pending = () => {
         <div className="admin-dashboard-page">
             <h2>Pending User Approvals</h2>
             <div className="approval-list">
+
                 {loading && <div className="spinner"></div>}  {/* Spinner */}
                 {error && <div className="error-message">{error}</div>}  {/* Error message */}
                 {!loading && users.map(user => (
+
                     <div key={user.id} className="approval-card">
                         <h2>{user.taiwaneseName}</h2>
                         <p>{user.school}</p>
