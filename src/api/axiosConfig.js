@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: 'https://stsa-member-server.onrender.com',
+    baseURL: 'https://member-server.stsa.tw',
     headers: {"skip-browser-warning": "true"}
 });
