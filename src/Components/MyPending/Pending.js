@@ -13,7 +13,7 @@ const Pending = () => {
                 console.log(response.data);  // Log the data to inspect it
                 setUsers(response.data);
             } catch (err) {
-                console.error('Failed to fetch users', err);
+                console.error('Failed to fetch users:', err.response ? err.response.data : err.message);
             }
         };
 
@@ -22,23 +22,37 @@ const Pending = () => {
 
     const handleApprove = async (id) => {
         try {
-            await api.post(`/userApi/approve/${id}`);
-            setUsers(users.filter(user => user.id !== id));  // Remove approved user from list
-            alert('User approved successfully!');  // Show success alert
+            const response = await api.post(`/userApi/approve/${id}`);
+            console.log('Approve response:', response);  // Log the response
+
+            if (response.status === 200) {
+                setUsers(prevUsers => prevUsers.filter(user => user.id !== id));  // Remove approved user from list
+                alert('User approved successfully!');
+            } else {
+                console.warn('Unexpected response status:', response.status);
+                alert('Failed to approve user.');
+            }
         } catch (err) {
-            console.error('Failed to approve user', err);
-            alert('Failed to approve user.');  // Show error alert
+            console.error('Failed to approve user:', err.response ? err.response.data : err.message);
+            alert('Failed to approve user.');
         }
     };
 
     const handleReject = async (id) => {
         try {
-            await api.post(`/userApi/reject/${id}`);
-            setUsers(users.filter(user => user.id !== id));  // Remove rejected user from list
-            alert('User rejected successfully!');  // Show success alert
+            const response = await api.post(`/userApi/reject/${id}`);
+            console.log('Reject response:', response);  // Log the response
+
+            if (response.status === 200) {
+                setUsers(prevUsers => prevUsers.filter(user => user.id !== id));  // Remove rejected user from list
+                alert('User rejected successfully!');
+            } else {
+                console.warn('Unexpected response status:', response.status);
+                alert('Failed to reject user.');
+            }
         } catch (err) {
-            console.error('Failed to reject user', err);
-            alert('Failed to reject user.');  // Show error alert
+            console.error('Failed to reject user:', err.response ? err.response.data : err.message);
+            alert('Failed to reject user.');
         }
     };
 
@@ -46,42 +60,23 @@ const Pending = () => {
         <div className="admin-dashboard-page">
             <h2>Pending User Approvals</h2>
             <div className="approval-list">
-                {users.map(user => {
-                    return (
-                        <div key={user.id} className="approval-card">
-                            <h2>{user.taiwaneseName}</h2>
-                            <p>{user.school}</p>
-                            <p>{user.program}</p>
-                            {user?.imageUrl && (
-                                <img 
-                                src={`http://localhost:8080/userApi/images/${user.imageUrl}`}  
+                {users.map(user => (
+                    <div key={user.id} className="approval-card">
+                        <h2>{user.taiwaneseName}</h2>
+                        <p>{user.school}</p>
+                        <p>{user.program}</p>
+                        {user?.fileId && (
+                            <img 
+                                src={`http://localhost:8080/userApi/images/${user.fileId}`}  
                                 alt="Student Card" 
                                 style={{ maxWidth: '100%', height: 'auto', marginBottom: '10px' }} 
-
-                                />
-                            )}
-
-                            <button onClick={() => handleApprove(user.id)}>Approve</button>
-                            <button className="reject" onClick={() => handleReject(user.id)}>Reject</button>
-                        </div>
-                    );
-                })}
+                            />
+                        )}
+                        <button onClick={() => handleApprove(user.id)}>Approve</button>
+                        <button className="reject" onClick={() => handleReject(user.id)}>Reject</button>
+                    </div>
+                ))}
             </div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-            <div className='pt-5'></div>
-
         </div>
     );
 };
