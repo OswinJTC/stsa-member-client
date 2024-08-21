@@ -4,16 +4,21 @@ import './Pending.css';
 
 const Pending = () => {
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);  // Loading state
+    const [error, setError] = useState('');         // Error message state
 
     useEffect(() => {
-        // Fetch users pending approval
         const fetchUsers = async () => {
             try {
+                setLoading(true);
                 const response = await api.get('/userApi/pending');
-                console.log(response.data);  // Log the data to inspect it
                 setUsers(response.data);
             } catch (err) {
-                console.error('Failed to fetch users:', err.response ? err.response.data : err.message);
+
+                setError('Failed to fetch users.');
+            } finally {
+                setLoading(false);
+
             }
         };
 
@@ -22,37 +27,39 @@ const Pending = () => {
 
     const handleApprove = async (id) => {
         try {
-            const response = await api.post(`/userApi/approve/${id}`);
-            console.log('Approve response:', response);  // Log the response
 
+            setLoading(true);
+            const response = await api.post(`/userApi/approve/${id}`);
             if (response.status === 200) {
-                setUsers(prevUsers => prevUsers.filter(user => user.id !== id));  // Remove approved user from list
+                setUsers(prevUsers => prevUsers.filter(user => user.id !== id));
                 alert('User approved successfully!');
             } else {
-                console.warn('Unexpected response status:', response.status);
-                alert('Failed to approve user.');
+                setError('Failed to approve user.');
             }
         } catch (err) {
-            console.error('Failed to approve user:', err.response ? err.response.data : err.message);
-            alert('Failed to approve user.');
+            setError('Failed to approve user.');
+        } finally {
+            setLoading(false);
+
         }
     };
 
     const handleReject = async (id) => {
         try {
-            const response = await api.post(`/userApi/reject/${id}`);
-            console.log('Reject response:', response);  // Log the response
 
+            setLoading(true);
+            const response = await api.post(`/userApi/reject/${id}`);
             if (response.status === 200) {
-                setUsers(prevUsers => prevUsers.filter(user => user.id !== id));  // Remove rejected user from list
+                setUsers(prevUsers => prevUsers.filter(user => user.id !== id));
                 alert('User rejected successfully!');
             } else {
-                console.warn('Unexpected response status:', response.status);
-                alert('Failed to reject user.');
+                setError('Failed to reject user.');
             }
         } catch (err) {
-            console.error('Failed to reject user:', err.response ? err.response.data : err.message);
-            alert('Failed to reject user.');
+            setError('Failed to reject user.');
+        } finally {
+            setLoading(false);
+
         }
     };
 
@@ -60,7 +67,11 @@ const Pending = () => {
         <div className="admin-dashboard-page">
             <h2>Pending User Approvals</h2>
             <div className="approval-list">
-                {users.map(user => (
+
+                {loading && <div className="spinner"></div>}  {/* Spinner */}
+                {error && <div className="error-message">{error}</div>}  {/* Error message */}
+                {!loading && users.map(user => (
+
                     <div key={user.id} className="approval-card">
                         <h2>{user.taiwaneseName}</h2>
                         <p>{user.school}</p>

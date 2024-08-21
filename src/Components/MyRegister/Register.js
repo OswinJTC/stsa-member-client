@@ -17,8 +17,9 @@ const Register = () => {
     contact_number: ''
   });
 
-  const [file, setFile] = useState(null); // New state for the file
+  const [file, setFile] = useState(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,43 +30,42 @@ const Register = () => {
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Save the file to state
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
-    // Basic validation to ensure all fields are filled
+    setLoading(true);
+  
     if (Object.values(formData).some(field => field === '') || !file) {
       setError('請填寫所有欄位並上傳學生證圖片');
+      setLoading(false);
       return;
     }
-
+  
     const formDataObj = new FormData();
     formDataObj.append('user', new Blob([JSON.stringify(formData)], { type: 'application/json' }));
     formDataObj.append('file', file);
-
+  
     try {
       const response = await api.post('/userApi/register', formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+  
       if (response.status === 200) {
-        alert('謝謝您的填寫，請先驗證郵件。資料才會送出～');
-        navigate('/');  // Redirect to the home page
+        alert('謝謝。請到郵箱驗證郵件');
+        navigate('/');  // Redirect to the home page after showing the alert
       }
     } catch (err) {
       setError('註冊失敗，請稍後再試');
+    } finally {
+      setLoading(false);
     }
   };
-
-  const backHome = () => {
-    navigate("/");
-  };
-
+  
   return (
     <div className="register-background">
       <div className='pt-5'></div>
@@ -161,7 +161,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label>學生證圖片:</label> {/* New file input for the student card */}
+          <label>學生證圖片:</label>
           <input
             type="file"
             name="studentCard"
@@ -172,14 +172,15 @@ const Register = () => {
         </div>
 
         {error && <div className="error-message">{error}</div>}
+        {loading && <div className="spinner"></div>}  {/* Spinner */}
 
         <div className="submit-button pt-3">
-          <button type="submit">提交</button>
+          <button type="submit" disabled={loading}>提交</button>
         </div>
       </form>
 
       <div className="back-home">
-        <button type="button" onClick={backHome}>返回首頁</button>
+        <button type="button" onClick={() => navigate('/')}>返回首頁</button>
       </div>
 
       <div className='pt-5'></div>

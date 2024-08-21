@@ -6,7 +6,7 @@ import Home from './Components/MyHome/Home';
 import Performance from './Components/MyPerformance/Performance';
 import Register from './Components/MyRegister/Register';
 import AllMembers from './Components/MyAllMembers/AllMembers'; 
-import Pending from './Components/MyPending/Pending'; 
+import ProtectedPending from './Components/MyPending/ProtectedPending'; 
 
 function App() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function App() {
           <Route path="Register" element={<Register />} />
           <Route path="Performance" element={<Performance />} />
           <Route path="AllMembers" element={<AllMembers />} /> 
-          <Route path="Pending" element={<Pending />} /> 
+          <Route path="admin/Pending" element={<ProtectedPending />} /> 
         </Route>
       </Routes>
     </div>

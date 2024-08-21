@@ -26,7 +26,7 @@ const Home = ({ handleLogout }) => {
       
       <div className='home-heading'>
         <h1 style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold', color: 'black' }}>
-          您好
+          STSA 會員系統
         </h1>
       </div>
 
@@ -40,12 +40,42 @@ const Home = ({ handleLogout }) => {
       }}>
         <h5 style={{ 
           fontFamily: 'serif', 
+          fontSize: '28px', 
+          fontWeight: 'bold', 
+          color: 'black',
+          margin: '0', 
+        }}>
+          <strong>使用需知</strong>
+        </h5>
+
+        <h5 style={{ 
+          fontFamily: 'serif', 
           fontSize: '20px', 
           fontWeight: 'bold', 
           color: 'black',
           margin: '0', 
         }}>
-          "回家的路很長"
+          1. 填入個資以申請會員
+        </h5>
+
+        <h5 style={{ 
+          fontFamily: 'serif', 
+          fontSize: '20px', 
+          fontWeight: 'bold', 
+          color: 'black',
+          margin: '0', 
+        }}>
+          2. 驗證電子郵件，並等待審核
+        </h5>
+
+        <h5 style={{ 
+          fontFamily: 'serif', 
+          fontSize: '20px', 
+          fontWeight: 'bold', 
+          color: 'black',
+          margin: '0', 
+        }}>
+          3. 審核通過後，會員卡會透過郵件寄出
         </h5>
       </div>
 
@@ -64,9 +94,9 @@ const Home = ({ handleLogout }) => {
           </div>
 
           <div className="col-md-4">
-            <Link to="/Pending" className="buttonWithBackground2 btn btn-secondary btn-lg btn-block square-btn">
+            <Link to="/not-done-yet" className="buttonWithBackground2 btn btn-secondary btn-lg btn-block square-btn">
               <div className="buttonContent">
-                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold'}}>會員審核</span>
+                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold'}}>會員信息</span>
               </div>
               <div className="buttonOverlay"></div>
             </Link>
@@ -74,7 +104,9 @@ const Home = ({ handleLogout }) => {
         </div>
       </div>
 
-      <div className="back-home">
+      <div className='pt-5'></div>
+      
+      <div className="show-all-member">
         <button type="button" onClick={AllMembers}>全部會員</button>
       </div>
 
