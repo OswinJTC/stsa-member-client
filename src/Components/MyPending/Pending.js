@@ -78,7 +78,7 @@ const Pending = () => {
                         <p>{user.program}</p>
                         {user?.fileId && (
                             <img 
-                                src={`http://localhost:8080/userApi/images/${user.fileId}`}  
+                                src={`https://member-server.stsa.tw/userApi/images/${user.fileId}`}  
                                 alt="Student Card" 
                                 style={{ maxWidth: '100%', height: 'auto', marginBottom: '10px' }} 
                             />
