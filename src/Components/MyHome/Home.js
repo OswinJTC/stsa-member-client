@@ -1,121 +1,48 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from 'react';
-import AllMembers from '../MyAllMembers/AllMembers';
-import { useNavigate } from 'react-router-dom';
 
- 
-
-const Home = ({ handleLogout }) => {
-  
-
+const Home = () => {
   const navigate = useNavigate();
- 
-
-  const AllMembers = () => {
-    navigate("/AllMembers");
-  };
-
 
   return (
     <div className='home-background'>
-      <div className='pt-5'></div>
-      <div className='pt-2'></div>
+      <div className='spacer'></div>
       
       <div className='home-heading'>
-        <h1 style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold', color: 'black' }}>
+        <h1 className="main-title">
           STSA 會員系統
         </h1>
       </div>
 
-      <div className='pt-5'></div>
+      <div className='spacer'></div>
 
-      <div style={{
-        display: 'inline-block',
-        backgroundColor: 'rgba(128, 128, 128, 0.2)',
-        padding: '5px',
-        borderRadius: '5px',
-      }}>
-        <h5 style={{ 
-          fontFamily: 'serif', 
-          fontSize: '28px', 
-          fontWeight: 'bold', 
-          color: 'black',
-          margin: '0', 
-        }}>
-          <strong>使用需知</strong>
-        </h5>
+      <div className='home-heading'>
+      
+        <h3 className="welcome-title">
+          歡迎加入STSA大家庭
+        </h3>
 
-        <h5 style={{ 
-          fontFamily: 'serif', 
-          fontSize: '20px', 
-          fontWeight: 'bold', 
-          color: 'black',
-          margin: '0', 
-        }}>
-          1. 填入個資以申請會員
-        </h5>
-
-        <h5 style={{ 
-          fontFamily: 'serif', 
-          fontSize: '20px', 
-          fontWeight: 'bold', 
-          color: 'black',
-          margin: '0', 
-        }}>
-          2. 驗證電子郵件，並等待審核
-        </h5>
-
-        <h5 style={{ 
-          fontFamily: 'serif', 
-          fontSize: '20px', 
-          fontWeight: 'bold', 
-          color: 'black',
-          margin: '0', 
-        }}>
-          3. 審核通過後，會員卡會透過郵件寄出
-        </h5>
+        <div className='pt-3'></div>
+        
+        <p className="welcome-text">
+          以下是台灣學生總會會員註冊表單，<br/>
+          此表單僅供本組織及駐新加坡台北代表處參考和用於日後的活動籌備，<br/>
+          並不會提供於其他單位，請各位安心填寫 謝謝！
+        </p>
       </div>
 
-      <div className='pt-5'></div>
-      <div className='pt-5'></div>
+      <div className='spacer'></div>
 
-      <div className="container-fluid">
-        <div className="row justify-content-center">
-          <div className="col-md-4">
-            <Link to="/Register" className="buttonWithBackground1 btn btn-secondary btn-lg btn-block square-btn">
-              <div className="buttonContent">
-                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold' }}>會員註冊</span>
-              </div>
-              <div className="buttonOverlay"></div>
-            </Link>
-          </div>
-
-          <div className="col-md-4">
-            <Link to="/not-done-yet" className="buttonWithBackground2 btn btn-secondary btn-lg btn-block square-btn">
-              <div className="buttonContent">
-                <span style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold'}}>會員信息</span>
-              </div>
-              <div className="buttonOverlay"></div>
-            </Link>
-          </div>
+      <Link to="/register" className="buttonWithBackground1">
+        <div className="buttonContent">
+          <span className="button-text">開始註冊</span>
         </div>
-      </div>
+        <div className="buttonOverlay"></div>
+      </Link>
 
-      <div className='pt-5'></div>
-      
-      <div className="show-all-member">
-        <button type="button" onClick={AllMembers}>全部會員</button>
-      </div>
-
-
-      <div className='pt-5'></div>
-      <div className='pt-5'></div>
-      
-      <div className='pt-5'></div>
-      <div className='pt-5'></div>
+      <div className='spacer'></div>
     </div>
   );
 };

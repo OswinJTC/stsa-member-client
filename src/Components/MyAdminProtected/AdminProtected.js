@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Pending from './Pending';
-import './ProtectedPending.css';
+import Admin from '../MyAdmin/Admin';
+import './AdminProtected.css';
 
-const ProtectedPending = () => {
+const AdminProtected = () => {
     const [password, setPassword] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate(); // Use useNavigate instead of useHistory
@@ -19,7 +19,7 @@ const ProtectedPending = () => {
     };
 
     if (isAuthenticated) {
-        return <Pending />;
+        return <Admin />;
     }
 
     return (
@@ -39,4 +39,4 @@ const ProtectedPending = () => {
     );
 };
 
-export default ProtectedPending;
+export default AdminProtected;

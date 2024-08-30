@@ -1,134 +1,137 @@
- 
-
-.home-background{
-    background-image: url("https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg");
- 
-    background-size: cover;
-    background-position: center;
+/* Background styling */
+.home-background {
+  background-image: url("https://d1o2pwfline4gu.cloudfront.net/m/t/28099/28089191/a-0052.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
-.home-heading{
-  font-size: 40px;  
-  text-align: center;  
+/* Spacing */
+.spacer {
+  height: 50px; /* Adjust as needed for spacing */
 }
 
-.square-btn {
-    width: 350px; /* Adjust width as needed */
-    height: 350px; /* Adjust height as needed */
-    font-size: 1.5rem; /* Increase font size if needed */
-    padding: 20px; /* Adjust padding as needed */
-  }
-  
-  
-  .buttonWithBackground1 {
-    background-image: url("https://geb.vgf.mybluehost.me/wp-content/uploads/2021/05/pexels-daniel-kist-70955.jpg");
-    background-size: cover;
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    border: 8px solid; 
-    border-color: rgba(66, 65, 65, 0.688);
-  }
+/* Headings */
+.home-heading {
+  text-align: center;
+}
 
-  .buttonWithBackground2 {
-    background-image: url("https://geb.vgf.mybluehost.me/wp-content/uploads/2021/05/pexels-jerry-wang-3768652-1.jpg");
-    background-size: cover;
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    border: 8px solid; 
-    border-color: rgba(66, 65, 65, 0.688);
-  }
-  
-  .buttonOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(185, 212, 227, 0.475);
-    z-index: 1;
-    border-radius: 5px;
-    transition: opacity 0.3s;
-    opacity: 0; /* Initially transparent */
-  }
-  
-  .buttonContent {
-    position: relative;
-    z-index: 2;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center; /* Center horizontally */ 
-    height: 100%; /* Ensure the content takes up the full height of the button */
-  }
-  
-  
-  .buttonContent img {
-    display: block;
-    width: 100%; /* Make the image fill the button */
-    border-radius: 5px;
-  }
-  
-  .buttonWithBackground1:hover .buttonOverlay {
-    opacity: 0.7; /* More opaque on hover */
-  }
-  
-  /* Additional hover effects */
-  .buttonWithBackground1:hover .buttonContent {
-    color: #f0f0f0;
-  }
-  
-    
-  .buttonWithBackground2:hover .buttonOverlay {
-    opacity: 0.9; /* More opaque on hover */
-  }
-  
-  /* Additional hover effects */
-  .buttonWithBackground2:hover .buttonContent {
-    color: #697067;
-  }
+.main-title {
+  font-family: 'serif';
+  font-size: 60px;
+  font-weight: bold;
+  color: black;
+}
 
-  .show-all-member button {
+.welcome-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: black;
+}
+
+.welcome-text {
+  font-size: 18px;
+  color: black;
+  line-height: 1.6;
+  background-color: rgba(128, 128, 128, 0.2);
   padding: 10px;
-  background-color: #9a1717;
+  border-radius: 5px;
+}
+
+/* Button Styling */
+.buttonWithBackground1 {
+  width: 350px; /* Larger square size */
+  height: 350px; /* Larger square size */
+  background-image: url("https://geb.vgf.mybluehost.me/wp-content/uploads/2021/05/pexels-daniel-kist-70955.jpg");
+  background-size: cover;
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(185, 212, 227, 0.475);
+  z-index: 1;
+  transition: opacity 0.3s;
+  opacity: 0; /* Initially transparent */
+  border-radius: 5px;
+}
+
+.buttonContent {
+  position: relative;
+  z-index: 2;
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  text-align: center;
 }
 
-.show-all-member button:hover {
-  background-color: #532628;
+.button-text {
+  font-family: 'serif';
+  font-size: 64px;
+  font-weight: bold;
 }
 
- 
+.buttonWithBackground1:hover .buttonOverlay {
+  opacity: 0.7; /* More opaque on hover */
+}
 
-  /* For screens smaller than 768px (phones), display buttons vertically */
+.buttonWithBackground1:hover .buttonContent {
+  color: #f0f0f0;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .container-fluid .row {
-    flex-direction: column;
-    align-items: center;
+  .home-background {
+    padding: 15px;
   }
 
-  .col-md-4 {
-    width: 100%; /* Make each column full width */
-    margin-bottom: 50px; /* Add some spacing between buttons */
+  .main-title {
+    font-size: 48px;
+  }
+
+  .welcome-title {
+    font-size: 28px;
+  }
+
+  .buttonWithBackground1 {
+    width: 280px;
+    height: 280px;
+  }
+
+  .button-text {
+    font-size: 48px;
   }
 }
 
-/* For screens larger than 768px (computers), display buttons horizontally */
-@media (min-width: 769px) {
-  .container-fluid .row {
-    flex-direction: row;
-    justify-content: center;
+@media (max-width: 480px) {
+  .home-background {
+    padding: 10px;
   }
 
-  .col-md-4 {
-    width: auto; /* Reset width to auto for horizontal layout */
-    margin-bottom: 0; /* Reset margin */
+  .main-title {
+    font-size: 36px;
   }
-} 
+
+  .welcome-title {
+    font-size: 24px;
+  }
+
+  .buttonWithBackground1 {
+    width: 220px;
+    height: 220px;
+  }
+
+  .button-text {
+    font-size: 20px;
+  }
+}
