@@ -31,7 +31,7 @@ const Pending = () => {
             setLoading(true);
             const response = await api.post(`/userApi/approve/${id}`);
             if (response.status === 200) {
-                setUsers(prevUsers => prevUsers.filter(user => user.id !== id));
+                setUsers(prevUsers => prevUsers.filter(user => user?.id !== id));
                 alert('User approved successfully!');
             } else {
                 setError('Failed to approve user.');
