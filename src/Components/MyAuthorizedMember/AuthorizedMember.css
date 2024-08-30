@@ -1,0 +1,27 @@
+.authorized-member-page {
+    padding: 50px;
+    background-image: url("https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  
+  
+  @media (max-width: 1200px) {
+    .member-list {
+        grid-template-columns: repeat(3, 1fr); /* Three columns on smaller screens */
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .member-list {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .member-list {
+        grid-template-columns: 1fr; /* Single column on mobile devices */
+    }
+  }
+  

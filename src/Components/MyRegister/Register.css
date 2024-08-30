@@ -1,56 +1,66 @@
 .register-background {
-  background-image: url("https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg");
+  background-image: url("https://d1o2pwfline4gu.cloudfront.net/m/t/28099/28089191/a-0052.jpg");
   background-size: cover;
   background-position: center;
+  min-height: 100vh; /* Ensure background covers full height */
 }
 
 .register-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.912);
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(31, 2, 2, 0.1);
 }
 
-.register-form div {
-  display: flex;
-  flex-direction: column;
-}
-
-.register-form label {
+.section-title {
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 5px;
+  color: #333;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column; /* Stack labels on top of inputs */
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
   font-size: 16px;
   color: #333;
+  margin-bottom: 5px; /* Space between label and input */
 }
 
-.register-form input {
+.form-group input,
+.form-group select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+  width: 100%; /* Ensure inputs take full width on smaller screens */
 }
 
-.submit-button {
+.submit-button button{
   padding: 12px 20px;
-  background-color: #6c757d;
   color: white;
+  background-color: #787878f6;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
-.submit-button:hover {
-  background-color: #5a6268;
+.submit-button button:hover {
+  background-color: #a3a3a3;
 }
+
 
 .back-home {
   text-align: center;
@@ -89,41 +99,84 @@
   }
 }
 
+/* 使用需知 Responsive Styling */
+.notice-section {
+  display: inline-block;
+  background-color: rgba(128, 128, 128, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%; /* Ensure it scales with screen size */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.notice-section h5 {
+  font-family: 'serif';
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  margin: 5px 0;
+  text-align: left;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .register-form {
-    grid-template-columns: 1fr; /* Stack the columns on top of each other */
+    padding: 15px;
+    gap: 15px;
+    margin: 0 16px; /* Adjust margin for smaller screens */
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 14px;
+  }
+
+  .submit-button, .back-home button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .notice-section {
     padding: 15px;
   }
 
-  .submit-button {
-    font-size: 16px;
-    padding: 10px 15px;
-  }
-
-  .back-home button {
-    font-size: 16px;
-    padding: 10px 15px;
+  .notice-section h5 {
+    font-size: 18px;
   }
 }
 
 @media (max-width: 480px) {
   .register-form {
     padding: 10px;
-    gap: 15px;
+    gap: 10px;
+    margin: 0 16px; /* Adjust margin for very small screens */
   }
 
-  .register-form label {
-    font-size: 14px;
+  .section-title {
+    font-size: 18px;
+    margin: 0 16px;
   }
 
-  .register-form input {
+  .form-group input,
+  .form-group select {
     font-size: 12px;
     padding: 8px;
   }
 
   .submit-button, .back-home button {
-    font-size: 14px;
+    font-size: 12px;
     padding: 8px 10px;
+  }
+
+  .notice-section {
+    padding: 10px;
+  }
+
+  .notice-section h5 {
+    font-size: 16px;
   }
 }

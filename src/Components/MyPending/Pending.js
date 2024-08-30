@@ -65,7 +65,7 @@ const Pending = () => {
 
     return (
         <div className="admin-dashboard-page">
-            <h2>Pending User Approvals</h2>
+            <h2>待認證的會員</h2>
             <div className="approval-list">
 
                 {loading && <div className="spinner"></div>}  {/* Spinner */}
@@ -88,7 +88,21 @@ const Pending = () => {
                     </div>
                 ))}
             </div>
-        </div>
+
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+            <div className='pt-5'></div>
+        </div> 
     );
 };
 
