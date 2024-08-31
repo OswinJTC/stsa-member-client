@@ -82,7 +82,7 @@ const Register = () => {
   return (
     <div className="register-background">
       <div className='pt-5'></div>
-      <div className='pt-5'></div>
+      
 
       <div className='home-heading'>
         <h1 style={{ fontFamily: 'serif', fontSize: '60px', fontWeight: 'bold', color: 'black' }}>
@@ -90,80 +90,22 @@ const Register = () => {
         </h1>
       </div>
 
-      <div className='pt-5'></div>
 
+      <div className='home-heading'>
+    
 
-      <div style={{
-  display: 'inline-block',
-  backgroundColor: 'rgba(128, 128, 128, 0.2)',
-  padding: '5px',
-  borderRadius: '5px',
-}}>
-  <h5 style={{ 
-    fontFamily: 'serif', 
-    fontSize: '28px', 
-    fontWeight: 'bold', 
-    color: 'black',
-    margin: '0'
-  }}>
-    <strong>使用需知</strong>
-  </h5>
+        <div className='pt-5'></div>
+        
+        <p className="welcome-text">
+          <h2>使用需知</h2><br/>
+          <strong>（一） 請填入 "個人資料" 和 "學校資訊" 以申請會員</strong><br/><br/>
+          <strong>（二） 學生證上傳僅接受 JPG 圖檔，且必須小於 2.5 MB。（請注意，這會是註冊失敗的主要原因）</strong><br/><br/>
+          <strong>（三） 提交後 ，請至信箱做 Email 驗證。（請注意， 必須完成Email驗證，資料才會成功送出）</strong><br/><br/>
+          <strong>（四） 資料送出後，等待幹部們人工審核會員資格。(約1~3個工作天)</strong><br/><br/>
+          <strong>（五） 審核通過後，您的會員卡將透過郵件寄出</strong><br/><br/>
+        </p>
+      </div>
 
-  <div className='pt-3'></div>
-
-  <h5 style={{ 
-
-    fontSize: '20px',  
-    color: 'black',
-    margin: '0', 
-    textAlign: 'left',
-  }}>
-     1.   請填入 "個人資料" 和 "學校資訊" 以申請會員
-  </h5>
-  <div className='pt-2'></div>
-
-  <h5 style={{ 
-    fontSize: '20px', 
-    color: 'black',
-    margin: '0', 
-    textAlign: 'left',
-  }}>
-     2.  學生證上傳僅接受 JPG 圖檔，且必須小於 2.5 MB，以免失敗。
-  </h5>
-
-  <div className='pt-2'></div>
-  <h5 style={{ 
-    fontSize: '20px', 
-    color: 'black',
-    margin: '0', 
-    textAlign: 'left',
-  }}>
-     3.  確認送出後 請到個人信箱 Email 驗證
-  </h5>
-
-  <div className='pt-2'></div>
-
-  <h5 style={{ 
-    fontSize: '20px', 
-    color: 'black',
-    margin: '0', 
-    textAlign: 'left',
-  }}>
-     4.  郵箱驗證後 需等幹部們審核會員資格(約1~3個工作天)
-  </h5>
-
-  <div className='pt-2'></div>
-
-  <h5 style={{ 
-    fontSize: '20px', 
-    color: 'black',
-    margin: '0', 
-    textAlign: 'left',
-  }}>
-     5.  審核通過後 會員卡將會透過郵件寄出!!
-  </h5>
-
-</div>
 
       <div className='pt-5'></div>
       <div className='pt-5'></div>

@@ -1,3 +1,4 @@
+/* Background styling */
 .register-background {
   background-image: url("https://d1o2pwfline4gu.cloudfront.net/m/t/28099/28089191/a-0052.jpg");
   background-size: cover;
@@ -47,7 +48,7 @@
   width: 100%; /* Ensure inputs take full width on smaller screens */
 }
 
-.submit-button button{
+.submit-button button {
   padding: 12px 20px;
   color: white;
   background-color: #787878f6;
@@ -60,7 +61,6 @@
 .submit-button button:hover {
   background-color: #a3a3a3;
 }
-
 
 .back-home {
   text-align: center;
@@ -105,8 +105,10 @@
   background-color: rgba(128, 128, 128, 0.2);
   padding: 10px;
   border-radius: 5px;
-  width: 100%; /* Ensure it scales with screen size */
+  width: calc(100% - 40px); /* Ensure it scales with screen size, leaving space on both sides */
+  max-width: 800px; /* Max width for larger screens */
   box-sizing: border-box; /* Include padding in width */
+  margin: 0 auto; /* Center the section */
 }
 
 .notice-section h5 {
