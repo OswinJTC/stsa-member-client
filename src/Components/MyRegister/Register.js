@@ -212,8 +212,8 @@ const Register = () => {
             required
           >
             <option value="">請選擇</option>
-            <option value="male">男性</option>
-            <option value="female">女性</option>
+            <option value="男性">男性</option>
+            <option value="女性">女性</option>
           </select>
         </div>
         <div className="form-group">
@@ -315,9 +315,9 @@ const Register = () => {
             required
           >
             <option value="">請選擇</option>
-            <option value="Bachelor">學士</option>
-            <option value="Master">碩士</option>
-            <option value="Doctorate">博士</option>
+            <option value="學士">學士</option>
+            <option value="碩士">碩士</option>
+            <option value="博士">博士</option>
           </select>
         </div>
 

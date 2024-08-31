@@ -1,27 +1,143 @@
 .authorized-member-page {
-    padding: 50px;
-    background-image: url("https://pluviophile.net/wp-content/uploads/wet-empty-road-wallpaper.jpg");
-    background-size: cover;
-    background-position: center;
+  background-image: url("https://d1o2pwfline4gu.cloudfront.net/m/t/28099/28089191/a-0052.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Ensure background covers full height */
+  padding: 20px; /* Add some padding to the page */
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+h6 {
+  font-size: 2rem; /* Adjusted font size */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px; /* Space below each heading */
+}
+
+p {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #333;
+  line-height: 1.5; /* Improved readability */
+  margin-bottom: 20px;
+  max-width: 800px; /* Limit text width to prevent it from spanning the entire screen */
+  text-align: justify; /* Improve readability */
+}
+
+.pdf-viewer iframe {
+  width: 100%;
+  max-width: 1400px; /* Suitable for larger screens */
+  height: 400px;
+  border: none;
+  margin: 20px 0; /* Add space above and below the PDF viewer */
+}
+
+@media (max-width: 768px) {
+  .pdf-viewer iframe {
+    height: 450px; /* Adjust height on tablets */
   }
-  
-  
-  
-  @media (max-width: 1200px) {
-    .member-list {
-        grid-template-columns: repeat(3, 1fr); /* Three columns on smaller screens */
-    }
+}
+
+@media (max-width: 480px) {
+  .pdf-viewer iframe {
+    height: 300px; /* Adjust height on phones */
+    max-width: 100%; /* Ensure it fits within the screen width */
   }
-  
-  @media (max-width: 900px) {
-    .member-list {
-        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
-    }
+}
+
+.member-info {
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Gradient background */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow for depth */
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px; /* Space between sections */
+  transition: transform 0.3s ease; /* Smooth hover effect */
+  text-align: left; /* Align text to the left */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the block as a whole */
+}
+
+.member-info p {
+  font-size: 1.1rem; /* Slightly larger text */
+  color: #333;
+  margin-bottom: 15px;
+  width: 100%; /* Ensure full width is used for alignment */
+}
+
+.member-info:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between; /* Ensures the label and value are spaced out */
+  margin-bottom: 10px; /* Space between rows */
+  width: 100%; /* Full width for proper alignment */
+}
+
+.info-label {
+  font-weight: bold;
+  min-width: 120px; /* Adjust this width as needed */
+  text-align: left;
+}
+
+.info-value {
+  flex: 1;
+  text-align: left;
+  padding-left: 20px; /* Space between label and value */
+}
+
+@media (max-width: 768px) {
+  .authorized-member-page {
+    padding: 10px;
   }
-  
-  @media (max-width: 600px) {
-    .member-list {
-        grid-template-columns: 1fr; /* Single column on mobile devices */
-    }
+
+  h6 {
+    font-size: 1.5rem;
   }
-  
+
+  p {
+    font-size: 0.9rem;
+    max-width: 90%; /* Adjust max-width for smaller screens */
+  }
+
+  .member-info {
+    padding: 20px;
+    max-width: 90%; /* Make member info more flexible */
+  }
+
+  .info-label {
+    min-width: 100px; /* Adjust the width for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  h6 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+  }
+
+  .pdf-viewer iframe {
+    height: 300px;
+  }
+
+  .member-info {
+    padding: 15px;
+    max-width: 100%; /* Ensure it fits within the screen */
+  }
+
+  .info-label {
+    min-width: 80px; /* Further adjust the width for very small screens */
+  }
+}

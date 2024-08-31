@@ -11,13 +11,18 @@
   gap: 20px;
   padding: 50px;
 }
-
 .member-card {
   background-color: #f9f9f9;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%; /* Make sure the card takes full width of the grid column */
+  cursor: pointer; /* Indicates that the card is clickable */
+  transition: transform 0.2s ease; /* Smooth transform on hover */
+}
+
+.member-card:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 .member-card h2 {
@@ -29,6 +34,8 @@
   margin: 5px 0;
   font-size: 16px;
 }
+
+/* Responsive breakpoints remain the same */
 
 
 @media (max-width: 1200px) {
