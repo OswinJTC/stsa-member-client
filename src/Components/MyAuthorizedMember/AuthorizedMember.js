@@ -45,7 +45,7 @@ const AuthorizedMember = () => {
       <div className='pt-5'></div>
       <div className='pt-5'></div>
 
-      <h1 className="heading-large">歡迎加入新加坡學生總會(STSA)</h1>
+      <h1 className="heading-large">歡迎加入新加坡台灣學生總會(STSA)</h1>
 
       <div className='pt-5'></div>
 
