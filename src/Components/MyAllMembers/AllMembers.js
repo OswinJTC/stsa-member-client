@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import api from '../../api/axiosConfig';
 import './AllMembers.css';
 
 const AllMembers = () => {
   const [members, setMembers] = useState([]);
   const [error, setError] = useState('');
+  const navigate = useNavigate();  // Initialize navigate
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -24,6 +26,10 @@ const AllMembers = () => {
     fetchMembers();
   }, []);
 
+  const handleMemberClick = (uuid) => {
+    navigate(`/authorizedMember/${uuid}`);
+  };
+
   return (
     <div className="all-member-page">
       <h1 style={{ fontFamily: 'serif', fontSize: '50px', fontWeight: 'bold', color: 'black' }}>
@@ -34,14 +40,17 @@ const AllMembers = () => {
 
       <div className="member-list">
         {members.map((member) => (
-          <div key={member.id} className="member-card">
+          <div 
+            key={member.id} 
+            className="member-card"
+            onClick={() => handleMemberClick(member.unique_uuid)}  // Add onClick to navigate
+          >
             <h2>{member.taiwaneseName} ({member.englishName})</h2>
-            <p>Email: {member.email}</p>
             <p>學校: {member.school}</p>
-            <p>課程: {member.program}</p>
-            <p>學年: {member.year_of_study}</p>
-            <p>生日: {member.birthday}</p>
-            <p>聯絡電話: {member.contact_number}</p>
+            <p>科系: {member.program}</p>
+            <p>Email: {member.email}</p>
+            <p>學位: {member.education_level}</p>
+            <p>年級: {member.year_of_study}</p>
           </div>
         ))}
       </div>
